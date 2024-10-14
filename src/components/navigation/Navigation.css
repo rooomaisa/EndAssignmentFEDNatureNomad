@@ -13,7 +13,6 @@
     /*We zorgen er ook voor dat deze flex-item op haar beurt ook weer een flexbox container is, waarin alle children onder elkaar komen te staan*/
     display: flex;
     flex-direction: row;
-    /*justify-content: space-between;*/
     justify-content: flex-end;
     align-items: center;
     height: 100%;
@@ -24,6 +23,7 @@
     border: none;
     max-width: 50px;
     margin-right: auto;
+    margin-left: 20px;
     display: flex;
     align-items: center;
     padding: 0;

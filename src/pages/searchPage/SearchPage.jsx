@@ -2,7 +2,7 @@ import React from 'react';
 
 function Search(props) {
     return (
-        <div>
+        <div className={'page-container'}>
             <h1>Search</h1>
         </div>
     );

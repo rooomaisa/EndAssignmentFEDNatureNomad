@@ -2,7 +2,7 @@ import React from 'react';
 
 function MyFavouritesPage(props) {
     return (
-        <div>
+        <div className={'page-container'}>
             <h1>My favourites</h1>
         </div>
     );

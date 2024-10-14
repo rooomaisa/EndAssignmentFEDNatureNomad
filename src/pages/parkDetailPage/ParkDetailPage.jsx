@@ -2,7 +2,7 @@ import React from 'react';
 
 function ParkDetail(props) {
     return (
-        <div>
+        <div className={'page-container'}>
             <h1>Park detail page </h1>
         </div>
     );
