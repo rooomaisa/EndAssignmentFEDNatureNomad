@@ -2,7 +2,9 @@ import React from 'react';
 
 function Search(props) {
     return (
-        <div></div>
+        <div>
+            <h1>Search</h1>
+        </div>
     );
 }
 

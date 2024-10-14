@@ -2,7 +2,9 @@ import React from 'react';
 
 function ParkDetail(props) {
     return (
-        <div></div>
+        <div>
+            <h1>Park detail page </h1>
+        </div>
     );
 }
 

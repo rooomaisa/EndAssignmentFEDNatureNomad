@@ -2,7 +2,9 @@ import React from 'react';
 
 function SignIn(props) {
     return (
-        <div></div>
+        <div>
+            <h1>Sign in</h1>
+        </div>
     );
 }
 
