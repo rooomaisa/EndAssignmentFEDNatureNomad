@@ -5,7 +5,7 @@ import './Navigation.css'
 function Navigation() {
     return (
         <nav className={'main-navigation outer-content-container'}>
-            <img src="/public/forest.svg" alt="Site Logo" className="main-navigation-logo-button"/>
+            <img src="/forest.svg" alt="Site Logo" className="main-navigation-logo-button"/>
             <div className={'inner-nav-container'}>
                 <ul className={'main-navigation-links'}>
                     <li><NavLink to={'/'}
