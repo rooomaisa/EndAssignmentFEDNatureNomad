@@ -20,7 +20,7 @@ function SearchComponent() {
 
             try {
                 const activityList = selectedActivities.join(',');
-                const url = `https://developer.nps.gov/api/v1/parks?api_key=VH0NU4pT0TJAlBErq2450GOdx2Rhf2gX3cQcJMM8&q=${activityList}&limit=50`;
+                const url = `https://developer.nps.gov/api/v1/parks?api_key==${activityList}&limit=50`;
                 console.log("API URL:", url);
                 const response = await axios.get(url);
                 console.log("API Response:", response.data);
@@ -54,11 +54,16 @@ function handleParkSelection(e) {
     } else {
         alert('You can select a maximum of 10 parks.');
     }
-
 }
 
 function handleActivitySelection(e) {
+    const { value, checked } = e.target;
 
+    if (checked){
+        setSelectedActivities(prev => [...prev, value]);
+    } else {
+        setSelectedActivities(prev => prev.filter(activity => activity !==value));
+    }
 }
 
 
