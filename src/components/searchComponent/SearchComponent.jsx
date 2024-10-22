@@ -5,47 +5,13 @@ function SearchComponent() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
     const [availableActivities, setAvailableActivities] = useState([]);
+    const [availableParks, setAvailableParks] = useState([]);
     const [selectedParks, setSelectedParks] = useState([]);
     const [selectedActivities, setSelectedActivities]= useState([]);
     const [parksData, setParksData] = useState([]);
     const [topFiveParks, setTopFiveParks] = useState([]);
 
-
-// kan ik die use effect zo gebruiken of zet tie het nu geijk op de pagina er moet wel knop igedrut worden
-
-    // bij die tweede useffect key eruit gehaald * vervangen
-
-
-        async function searchParks() {
-            setLoading(true);
-            setError('');
-
-            // Die key klopt hier niet!!!weggehaald voor git
-
-            try {
-                const activityList = selectedActivities.join(',');
-                const url = `https://developer.nps.gov/api/v1/parks?api_key==${activityList}&limit=50`;
-                console.log("API URL:", url);
-                const response = await axios.get(url);
-                console.log("API Response:", response.data);
-                setParksData(response.data.data);
-            } catch (e) {
-                if (axios.isCancel(e)) {
-                    console.error(`request is canceled`)
-                } else {
-                    console.error(e);
-                    setError(`Something went wrong: ` + e.message + true);
-                }
-            } finally {
-                setLoading(false);
-            }
-        }
-
-    useEffect(() => {
-        searchParks();
-    }, [selectedActivities]);
-
-
+// keys zijn overal weg!!!
 
     useEffect(() => {
         const controller = new AbortController();
@@ -55,7 +21,7 @@ function SearchComponent() {
             setError('');
 
             try{
-                const response = await axios.get(`https://developer.nps.gov/api/v1/activities?api_key=*`,{signal: controller.signal,});
+                const response = await axios.get(`https://developer.nps.gov/api/v1/activities?api_key=`,{signal: controller.signal,});
                 setAvailableActivities(response.data.data);
             } catch (e) {
                 if (axios.isCancel(e)) {
@@ -77,13 +43,76 @@ function SearchComponent() {
     }, []);
 
 
-function handleParkSelection(e) {
-    const selected = Array.from(e.target.selectedOptions, option => option.value);
+    useEffect(() => {
+        const controller = new AbortController();
 
-    if (selected.length <= 10){
-        setSelectedParks(selected);
+        async function fetchParks() {
+            setLoading(true);
+            setError('');
+
+            try {
+                const response = await axios.get(`https://developer.nps.gov/api/v1/parks?api_key=`, { signal: controller.signal });
+                setAvailableParks(response.data.data);
+            } catch (e) {
+                if (axios.isCancel(e)) {
+                    console.error(`request is canceled`);
+                } else {
+                    console.error(e);
+                    setError(`Something went wrong: ` + e.message + true);
+                }
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        fetchParks();
+
+        return function cleanup() {
+            controller.abort();
+        };
+    }, []);
+
+
+async function searchParks() {
+        if (selectedActivities.length === 0) {
+            alert("Please select at least one activity.");
+            return;
+        }
+
+        setLoading(true);
+        setError('');
+
+        // Die key klopt hier niet!!!weggehaald voor git
+
+        try {
+            const url = `https://developer.nps.gov/api/v1/parks?api_key=`;
+            console.log("API URL:", url);
+            const response = await axios.get(url);
+            console.log("API Response:", response.data);
+            setParksData(response.data.data);
+        } catch (e) {
+            if (axios.isCancel(e)) {
+                console.error(`request is canceled`)
+            } else {
+                console.error(e);
+                setError(`Something went wrong: ` + e.message + true);
+            }
+        } finally {
+            setLoading(false);
+        }
+    }
+
+function handleParkSelection(e) {
+    const { value, checked }= e.target;
+
+    if (checked){
+        if (selectedParks.length < 10) {
+            setSelectedParks(prev => [...prev, value]);
     } else {
         alert('You can select a maximum of 10 parks.');
+       }
+    } else {
+        setSelectedParks(prev => prev.filter(park => park !== value));
     }
 }
 
@@ -127,18 +156,25 @@ useEffect (() => {
         return (
             <div>
                 <h1> Select parks and activities</h1>
-                <select multiple onChange={handleParkSelection}>
-                    {parksData.map(park => (
-                    <option key={park.id} value={park.fullName}>
-                        {park.fullName}
-                    </option>
+                <div>
+                    {availableParks.map(park => (
+                        <label key={park.id}>
+                            <input
+                                type="checkbox"
+                                value={park.fullName}
+                                onChange={handleParkSelection}
+                                checked={selectedParks.includes(park.fullName)}
+                            />
+                            {park.fullName}
+                        </label>
                     ))}
-                </select>
+                </div>
+
 
                 <div>
                     {availableActivities.map(activity => (
                         <label key={activity.id}>
-                            <input type={`checkbox`} value={activity.name} onChange={handleActivitySelection} />
+                            <input type={`checkbox`} value={activity.name} onChange={handleActivitySelection}/>
                             {activity.name}
                         </label>
                     ))}
@@ -146,6 +182,8 @@ useEffect (() => {
 
                 <button onClick={searchParks}>Search</button>
 
+                {topFiveParks.length > 0 && (
+                    <>
                 <h2>Your top 5 Parks</h2>
                 <ul>
                     {topFiveParks.map(park => (
@@ -155,8 +193,10 @@ useEffect (() => {
                         </li>
                     ))}
                 </ul>
+                    </>
+                    )}
             </div>
         );
-    }
+}
 
 export default SearchComponent;
