@@ -1,7 +1,7 @@
 import './App.css'
 import Navigation from "./components/navigation/Navigation.jsx";
 import Footer from "./components/footer/Footer.jsx";
-import {Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import SignUp from "./pages/sign-upPage/Sign-upPage.jsx";
 import SignIn from "./pages/sign-inPage/Sign-inPage.jsx";
 import Home from "./pages/home/Home.jsx";
@@ -9,11 +9,17 @@ import Search from "./pages/searchPage/SearchPage.jsx";
 import ParkDetail from "./pages/parkDetailPage/ParkDetailPage.jsx";
 import MyFavouritesPage from "./pages/myFavouritesPage/MyFavouritesPage.jsx";
 import NotFound from "./pages/notFoundPage/NotFound.jsx";
+import ProfilePage from "./pages/ProfilePage/ProfilePage.jsx";
+import {useContext} from "react";
+import {AuthContext} from "./context/AuthContext.jsx";
 
 
 
 
 function App() {
+
+    const {isAuth} = useContext(AuthContext);
+
     return (
         <>
             <Navigation/>
@@ -23,6 +29,7 @@ function App() {
                     <Route path="/search" element={<Search/>} />
                     <Route path="/park/:id" element={<ParkDetail/>} />
                     <Route path="/myfavourites" element={<MyFavouritesPage/>} />
+                    <Route path="/profile" element={ isAuth ? <ProfilePage /> : <Navigate to="/signin"/>}/>
                     <Route path="/sign-up" element={<SignUp/>} />
                     <Route path="/sign-in" element={<SignIn/>} />
                     <Route path="*" element={<NotFound/>}/>
