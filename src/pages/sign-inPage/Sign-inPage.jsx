@@ -1,18 +1,42 @@
 import React, {useContext, useState} from 'react';
 import {Link} from "react-router-dom";
 import {AuthContext} from "../../context/AuthContext.jsx";
-import './Sign-inPage.css'
+import axios from "axios";
+import './Sign-inPage.css';
 
 function SignIn() {
     const {login} = useContext(AuthContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    function handleSubmit (e) {
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false)
+
+    async function handleSubmit (e) {
         e.preventDefault();
         login(email);
-    }
+        console.log(email,password);
 
+        setLoading(true);
+        setError('');
+
+        try {
+            const response =
+                await axios.post('http://localhost:3000/login', {
+                    email: email,
+                    password: password,
+                });
+            console.log(response.data);
+            login(response.data.accessToken);
+
+        } catch (e) {
+            console.error(e);
+            setError(`Something went wrong: ` + e.message);
+        }
+        finally {
+            setLoading(false);
+        }
+    }
 
     return (
         <>

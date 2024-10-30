@@ -1,28 +1,96 @@
 import React from 'react';
-import {createContext, useState} from "react";
+import {createContext, useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
+import {jwtDecode} from "jwt-decode";
+import axios from "axios";
+import validateToken from "../helpers/isTokenValid";
 
 export const AuthContext = createContext ({});
 
 function AuthContextProvider({children}) {
-    const [isAuth, setIsAuth]= useState ({ isAuth:false, user:''});
-    const navigate = useNavigate();
 
-    function login(email){
+    const [auth, setAuth]= useState ({
+        isAuth:false,
+        user: null,
+        status: 'pending',
+    });
+    const navigate = useNavigate();
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false)
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+
+        if (token) {
+            const decoded = jwtDecode(token);
+            void validateToken(token, setAuth, setError);
+        } else {
+            setAuth({
+                isAuth: false,
+                user: null,
+                status: 'done',
+            });
+        }
+    }, [setAuth, setError]);
+
+
+    async function login(token) {
+        localStorage.setItem('token', token);
+        const decodedToken = jwtDecode(token);
+
+        setLoading(true);
+        setError('');
+
+        try {
+            const response =
+                await axios.get(`http://localhost:3000/600/users/${decodedToken.sub}`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    }
+                });
+            console.log(response);
+
+            setAuth({
+                isAuth: true,
+                user: {
+                    email: response.data.email,
+                    username: response.data.username,
+                    id: response.data.id,
+                },
+                status: 'done',
+            });
+
+        } catch (e) {
+            console.error(e);
+            setError(`Something went wrong: ` + e.message);
+            setAuth({
+                isAuth: false,
+                user: null,
+                status: 'done',
+            })
+        } finally {
+            setLoading(false);
+        }
+
+
         console.log(`logged in`);
-        setIsAuth({ isAuth:true, user:email});
         navigate('/profile');
     }
 
     function logout() {
+        localStorage.clear();
+        setAuth({
+            isAuth: false,
+            user: null,
+            status: 'done',
+        })
         console.log(`logged out`);
-        setIsAuth({ isAuth:false, user:''});
         navigate(`/`);
     }
 
     const contextData = {
-        isAuth: isAuth,
-        user: isAuth.user,
+        isAuth: auth.isAuth,
         login: login,
         logout: logout,
     };
@@ -30,7 +98,7 @@ function AuthContextProvider({children}) {
 
     return (
         <AuthContext.Provider value={contextData}>
-            {children}
+            {auth.status === 'done' ? children : <p> Loading...</p> }
         </AuthContext.Provider>
     );
 }
