@@ -20,13 +20,25 @@ function SignUp() {
         setError('');
 
         try {
-            await axios.post('http://localhost:3000/register', {
+            await axios.post('https://api.datavortex.nl/naturenomad/users', {
+                username: username,
                 email: email,
                 password: password,
-                username: username,
+                info: 'testinfo',
+                "authorities": [
+                    {
+                        "authority": "USER"
+                    }
+                ]
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Api-Key': 'naturenomad:Ic0HJDZjRv9QEebv4tta'
+                }
             });
 
             navigate ('/sign-in');
+            console.log("User registered successfully");
 
         } catch (e) {
             console.error(e);
