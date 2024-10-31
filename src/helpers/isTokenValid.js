@@ -12,7 +12,7 @@ export async function validateToken(token, setAuth, setError) {
             await axios.get(`https://api.datavortex.nl/naturenomad/users/${decodedToken.sub}`, {
                 headers: {
                     "Content-Type": "application/json",
-                    // Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${token}`,
                     "X-Api-Key": "naturenomad:Ic0HJDZjRv9QEebv4tta",
                 }
             });
