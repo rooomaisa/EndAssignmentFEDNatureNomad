@@ -29,6 +29,7 @@ function SignIn() {
                     password: password,
                 });
             const token = response.data.jwt;
+            console.log(response.data);
             console.log(response.data.jwt);
             login(token);
             navigate("/profile")

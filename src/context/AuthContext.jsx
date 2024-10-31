@@ -37,16 +37,19 @@ function AuthContextProvider({children}) {
     async function login(token) {
         localStorage.setItem('token', token);
         const decodedToken = jwtDecode(token);
+        console.log(decodedToken)
+        // const username= decodedToken.username || decodedToken.sub
 
         setLoading(true);
         setError('');
 
         try {
             const response =
-                await axios.get(`http://localhost:3000/600/users/${decodedToken.sub}`, {
+                await axios.get(`https://api.datavortex.nl/naturenomad/users/${decodedToken.sub}`, {
                     headers: {
                         "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
+                        // Authorization: `Bearer ${token}`,
+                        "X-Api-Key": "naturenomad:Ic0HJDZjRv9QEebv4tta",
                     }
                 });
             console.log(response);

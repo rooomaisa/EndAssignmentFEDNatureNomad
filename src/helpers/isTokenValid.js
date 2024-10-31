@@ -5,13 +5,16 @@ export async function validateToken(token, setAuth, setError) {
     try {
         const decodedToken = jwtDecode(token);
         const currentTime = Date.now() / 1000;
+        // const username= decodedToken.username;
 
         if (decodedToken.exp > currentTime) {
-            const response = await axios.get(`http://localhost:3000/600/users/${decodedToken.sub}`, {
+            const response =
+            await axios.get(`https://api.datavortex.nl/naturenomad/users/${decodedToken.sub}`, {
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
+                    // Authorization: `Bearer ${token}`,
+                    "X-Api-Key": "naturenomad:Ic0HJDZjRv9QEebv4tta",
+                }
             });
 
             setAuth({
