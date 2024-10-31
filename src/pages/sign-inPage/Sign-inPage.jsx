@@ -1,34 +1,37 @@
 import React, {useContext, useState} from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {AuthContext} from "../../context/AuthContext.jsx";
-// import {AuthContext} from "../context/AuthContext";
 import axios from "axios";
+import './Sign-InPage.css';
 
 function SignIn() {
     const {login} = useContext(AuthContext);
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false)
+    const navigate = useNavigate();
 
 
     async function handleSubmit (e) {
         e.preventDefault();
-        login(email);
-        console.log(email,password);
+        login(username);
+        console.log(username,password);
 
         setLoading(true);
         setError('');
 
         try {
             const response =
-                await axios.post('http://localhost:3000/login', {
-                    email: email,
+                await axios.post('https://api.datavortex.nl/naturenomad/users/authenticate', {
+                    email: username,
                     password: password,
                 });
-            console.log(response.data);
-            login(response.data.accessToken);
+            const token = response.data.jwt;
+            console.log(response.data.jwt);
+            login(token);
+            navigate('/profile')
 
         } catch (e) {
             console.error(e);
