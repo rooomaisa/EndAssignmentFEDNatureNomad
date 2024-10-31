@@ -25,13 +25,13 @@ function SignIn() {
         try {
             const response =
                 await axios.post('https://api.datavortex.nl/naturenomad/users/authenticate', {
-                    email: username,
+                    username: username,
                     password: password,
                 });
             const token = response.data.jwt;
             console.log(response.data.jwt);
             login(token);
-            navigate('/profile')
+            navigate("/profile")
 
         } catch (e) {
             console.error(e);
@@ -49,14 +49,14 @@ function SignIn() {
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab alias cum debitis dolor dolore fuga id molestias qui quo unde?</p>
 
             <form onSubmit={handleSubmit}>
-                <label htmlFor={`email-field`}>
-                    Emailadres:
+                <label htmlFor={`username-field`}>
+                    Username:
                     <input
-                        type={`email`}
-                        id={`email-field`}
-                        name={`email`}
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        type={`username`}
+                        id={`username-field`}
+                        name={`username`}
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
                     />
                 </label>
 

@@ -29,7 +29,8 @@ function App() {
                     <Route path="/search" element={ isAuth ? <Search/> : <Navigate to="/signin"/>} />
                     <Route path="/park/:id" element={ isAuth ? <ParkDetail/> : <Navigate to="/signin"/>} />
                     <Route path="/myfavourites" element={ isAuth ? <MyFavouritesPage/> : <Navigate to="/signin"/>} />
-                    <Route path="/profile" element={ isAuth ? <ProfilePage /> : <Navigate to="/signin"/>}/>
+                    {/*<Route path="/profile" element={ isAuth ? <ProfilePage /> : <Navigate to="/signin"/>}/>*/}
+                    <Route path="/profile" element={<ProfilePage />} />
                     <Route path="/sign-up" element={<SignUp/>} />
                     <Route path="/sign-in" element={<SignIn/>} />
                     <Route path="*" element={<NotFound/>}/>
