@@ -94,6 +94,7 @@ function AuthContextProvider({children}) {
 
     const contextData = {
         isAuth: auth.isAuth,
+        user: auth.user,
         login: login,
         logout: logout,
     };

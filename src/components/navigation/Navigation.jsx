@@ -23,7 +23,7 @@ function Navigation() {
 
             {isAuth ? (
                 <div>
-                    <span> Welcome, {user} ! </span>
+                    {/*<span> Welcome, {user} ! </span>*/}
                     <ul>
                         <li>
                             <NavLink to="/search" className={({ isActive }) => (isActive ? 'active-link' : 'default-link')}>
