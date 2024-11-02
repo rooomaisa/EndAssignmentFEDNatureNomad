@@ -19,7 +19,7 @@ const ProfilePage = () => {
 
     return (
         <>
-            <h1>Profielpagina</h1>
+            <h1>Profile page</h1>
             <section>
                 <h2>Gegevens</h2>
                 <p><strong>Gebruikersnaam:</strong> {user.username} </p>
