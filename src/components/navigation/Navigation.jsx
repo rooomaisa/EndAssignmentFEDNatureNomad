@@ -6,7 +6,7 @@ import logo from "/forest.svg";
 
 function Navigation() {
     const navigate = useNavigate();
-    const { isAuth, user, logout } = useContext(AuthContext);
+    const { isAuth, logout } = useContext(AuthContext);
     console.log("Authenticatie status:", isAuth);
 
 

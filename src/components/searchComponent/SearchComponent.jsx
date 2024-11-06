@@ -21,7 +21,7 @@ function SearchComponent() {
             setError('');
 
             try{
-                const response = await axios.get(`https://developer.nps.gov/api/v1/activities?api_key=`,{signal: controller.signal,});
+                const response = await axios.get(`https://developer.nps.gov/api/v1/activities?api_key=VH0NU4pT0TJAlBErq2450GOdx2Rhf2gX3cQcJMM8`,{signal: controller.signal,});
                 setAvailableActivities(response.data.data);
             } catch (e) {
                 if (axios.isCancel(e)) {
@@ -51,7 +51,7 @@ function SearchComponent() {
             setError('');
 
             try {
-                const response = await axios.get(`https://developer.nps.gov/api/v1/parks?api_key=`, { signal: controller.signal });
+                const response = await axios.get(`https://developer.nps.gov/api/v1/parks?api_key=VH0NU4pT0TJAlBErq2450GOdx2Rhf2gX3cQcJMM8&limit=50`, { signal: controller.signal });
                 setAvailableParks(response.data.data);
             } catch (e) {
                 if (axios.isCancel(e)) {
@@ -85,7 +85,7 @@ async function searchParks() {
         // Die key klopt hier niet!!!weggehaald voor git
 
         try {
-            const url = `https://developer.nps.gov/api/v1/parks?api_key=`;
+            const url = `https://developer.nps.gov/api/v1/parks?api_key=VH0NU4pT0TJAlBErq2450GOdx2Rhf2gX3cQcJMM8&limit=50`;
             console.log("API URL:", url);
             const response = await axios.get(url);
             console.log("API Response:", response.data);
