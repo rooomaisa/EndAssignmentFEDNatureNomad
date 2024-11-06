@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react';
-import authContext from "./AuthContext.jsx";
+import {AuthContext} from "./AuthContext.jsx";
 import axios from "axios";
 
 export const SavedParksContext = createContext({});
@@ -19,7 +19,7 @@ function SavedParksProvider({ children }) {
 
         try {
             const token = localStorage.getItem('token');
-            const username = authContext.user.username;
+            const username = AuthContext.user.username;
 
             const response =
                 await axios.put(`https://novi.datavortex.nl/users/${username}`,
@@ -39,16 +39,9 @@ function SavedParksProvider({ children }) {
             console.error(e);
             setError(`Something went wrong: ` + e.message);
         } finally {
-        setLoading(false);
+            setLoading(false);
+        }
     }
-
-
-
-
-
-
-
-
 
 
 
