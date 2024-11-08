@@ -30,7 +30,7 @@ function SavedParksProvider({ children }) {
 
         try {
             const token = localStorage.getItem('token');
-            // const username = AuthContext.user.username;
+            const username = user.username;
             if ( user?.username){
 
             const response =
