@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import { SavedParksContext } from '../../context/SavedParksContext';
 import MyFavoriteParkTile from "../../components/myFavoriteParkTile/MyFavoriteParkTile.jsx";
+import './MyFavouritesPage.css'
 
 function MyFavouritesPage() {
     const {savedParks} = useContext(SavedParksContext);

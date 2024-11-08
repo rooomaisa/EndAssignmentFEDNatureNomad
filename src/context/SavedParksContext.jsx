@@ -5,8 +5,9 @@ import axios from "axios";
 export const SavedParksContext = createContext({});
 
 function SavedParksProvider({ children }) {
-    const {user} = useContext(AuthContext);
-    const [savedParks, setSavedParks] = useState([]);
+    // const {user} = useContext(AuthContext);
+    const initialSavedParks = JSON.parse(localStorage.getItem('savedParks') || '[]');
+    const [savedParks, setSavedParks] = useState(initialSavedParks);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false)
     const [notification, setNotification] = useState('');
@@ -30,26 +31,27 @@ function SavedParksProvider({ children }) {
 
         try {
             const token = localStorage.getItem('token');
-            const username = user.username;
-            if ( user?.username){
+            const parksDataString= JSON.stringify(updatedParks)
+            // const username = user.username;
+            // if ( user?.username){
 
             const response =
-                await axios.put(`https://novi.datavortex.nl/users/${username}`,
-                    {info: updatedParks},
+                await axios.put(`https://api.datavortex.nl/naturenomad/info`,
+                    {info: parksDataString},
                     {
                         headers: {
                             "Content-Type": "application/json",
                             Authorization: `Bearer ${token}`,
-                            "X-Api-Key": "naturenomad:Ic0HJDZjRv9QEebv4tta",
+                            // "X-API-Key": "naturenomad:Ic0HJDZjRv9QEebv4tta",
                         },
                     }
                 );
-            setSavedParks(response.data.info)
+            setSavedParks(JSON.parse(response.data.info));
             console.log('park saves succesfully:', response.data);
 
-            } else {
-                console.error("User's username is missing from AuthContext.");
-            }
+            // } else {
+            //     console.error("User's username is missing from AuthContext.");
+            // }
 
         } catch (e) {
             console.error(e);

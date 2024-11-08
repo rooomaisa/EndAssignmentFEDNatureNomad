@@ -1,4 +1,5 @@
 import React from 'react';
+import './MyFavoriteParkTile.css'
 
 const myFavoriteParkTile = ({ park }) => {
     return (

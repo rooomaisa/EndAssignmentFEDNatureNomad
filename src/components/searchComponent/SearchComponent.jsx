@@ -1,6 +1,7 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
 import axios from "axios";
 import {SavedParksContext} from "../../context/SavedParksContext.jsx";
+import './SearchComponent.css'
 
 function SearchComponent() {
     const [loading, setLoading] = useState(false)
