@@ -73,6 +73,15 @@ p {
   color: #FFFFFF;
 }
 
+.notification {
+  background-color: #ffeb3b;
+  color: #333;
+  padding: 10px;
+  margin-top: 10px;
+  text-align: center;
+  border-radius: 5px;
+}
+
 
 
 

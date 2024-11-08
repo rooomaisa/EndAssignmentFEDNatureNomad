@@ -1,5 +1,6 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import axios from "axios";
+import {SavedParksContext} from "../../context/SavedParksContext.jsx";
 
 function SearchComponent() {
     const [loading, setLoading] = useState(false)
@@ -10,6 +11,7 @@ function SearchComponent() {
     const [selectedActivities, setSelectedActivities]= useState([]);
     const [parksData, setParksData] = useState([]);
     const [topFiveParks, setTopFiveParks] = useState([]);
+    const {savePark} = useContext(SavedParksContext);
 
 // keys zijn overal weg!!!
 
@@ -190,6 +192,7 @@ useEffect (() => {
                         <li key={park.id}>
                             <h3>{park.fullName}</h3>
                             <p>{park.description}</p>
+                            <button onClick={() => savePark(park)}>Save Park</button>
                         </li>
                     ))}
                 </ul>
