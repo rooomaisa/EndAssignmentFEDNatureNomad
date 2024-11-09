@@ -1,19 +1,20 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState} from 'react';
 import axios from "axios";
 import {SavedParksContext} from "../../context/SavedParksContext.jsx";
 import './SearchComponent.css'
+import Modal from '../modal/Modal.jsx';
 
 function SearchComponent() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
     const [availableActivities, setAvailableActivities] = useState([]);
     const [suggestedParks, setSuggestedParks]= useState([]);
-
     const [selectedParks, setSelectedParks] = useState([]);
     const [selectedActivities, setSelectedActivities]= useState([]);
-
-    const {savePark} = useContext(SavedParksContext);
     const [searchTerm, setSearchTerm] = useState('');
+    const [topParks, setTopParks] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const {savePark} = useContext(SavedParksContext);
 
 // keys zijn overal weg!!!
 
@@ -96,6 +97,36 @@ function handleActivitySelection(e) {
         checked ? [...prev, value] : prev.filter(activity => activity !== value)
     );
 }
+    async function handleSearch() {
+        // Fetch top 5 parks based on selected parks and activities
+        setLoading(true);
+        try {
+            const response = await axios.get(
+                `https://developer.nps.gov/api/v1/parks?api_key=VH0NU4pT0TJAlBErq2450GOdx2Rhf2gX3cQcJMM8&limit=5`,
+                {
+                    params: {
+                        parks: selectedParks.map((park) => park.fullName).join(','),
+                        activities: selectedActivities.join(',')
+                    }
+                }
+            );
+            setTopParks(response.data.data);
+            setIsModalOpen(true); // Open modal with results
+        } catch (e) {
+            setError(`Something went wrong: ` + e.message);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    function handleCloseModal() {
+        setIsModalOpen(false);
+        setSelectedParks([]);
+        setSelectedActivities([]);
+        setTopParks([]);
+    }
+
+
 
         return (
             <div>
@@ -141,21 +172,23 @@ function handleActivitySelection(e) {
                         </label>
                     ))}
                 </div>
+                <button onClick={handleSearch} disabled={loading}>
+                    Search
+                </button>
 
-                {selectedParks.length > 0 && (
-                    <>
-                        <h2>Your Top Parks</h2>
-                        <ul>
-                            {selectedParks.map((park) => (
-                                <li key={park.id}>
-                                    <h3>{park.fullName}</h3>
-                                    <p>{park.description}</p>
-                                    <button onClick={() => savePark(park)}>Save Park</button>
-                                </li>
-                            ))}
-                        </ul>
-                    </>
-                )}
+                <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+                    <h2>Top 5 Parks</h2>
+                    {topParks.map((park) => (
+                        <div key={park.id}>
+                            <h3>{park.fullName}</h3>
+                            <p>{park.description}</p>
+                            <button onClick={() => savePark(park)}>Save Park</button>
+                        </div>
+                    ))}
+                    <button onClick={handleCloseModal}>Search Again</button>
+                </Modal>
+
+
             </div>
 
         );
