@@ -121,14 +121,23 @@ function handleActivitySelection(e) {
 
     function handleCloseModal() {
         setIsModalOpen(false);
-        setSelectedParks([]);
-        setSelectedActivities([]);
-        setTopParks([]);
+        resetSearch();
     }
 
+    const resetSearch = () => {
+        setSelectedParks([]);
+        setSelectedActivities([]);
+        setSearchTerm('');
+    };
+
+    const handleSearchAgain = () => {
+        handleCloseModal();
+    };
 
 
-        return (
+
+
+    return (
             <div>
                 <h1>Select Parks and Activities</h1>
                 <input
@@ -166,6 +175,7 @@ function handleActivitySelection(e) {
                             <input
                                 type="checkbox"
                                 value={activity.name}
+                                checked={selectedActivities.includes(activity.name)}
                                 onChange={handleActivitySelection}
                             />
                             {activity.name}
@@ -185,7 +195,7 @@ function handleActivitySelection(e) {
                             <button onClick={() => savePark(park)}>Save Park</button>
                         </div>
                     ))}
-                    <button onClick={handleCloseModal}>Search Again</button>
+                    <button onClick={handleSearchAgain}>Search Again</button>
                 </Modal>
 
 
