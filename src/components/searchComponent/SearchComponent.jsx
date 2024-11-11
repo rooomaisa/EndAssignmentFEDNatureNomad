@@ -28,6 +28,7 @@ function SearchComponent() {
             try{
                 const response = await axios.get(`https://developer.nps.gov/api/v1/activities?api_key=VH0NU4pT0TJAlBErq2450GOdx2Rhf2gX3cQcJMM8`,{signal: controller.signal,});
                 setAvailableActivities(response.data.data);
+                console.log(response.data.data)
             } catch (e) {
                 if (axios.isCancel(e)) {
                     console.error(`request is canceled`)
@@ -41,6 +42,7 @@ function SearchComponent() {
         }
 
         fetchActivities();
+
 
         return function cleanup() {
             controller.abort();
@@ -97,27 +99,55 @@ function handleActivitySelection(e) {
         checked ? [...prev, value] : prev.filter(activity => activity !== value)
     );
 }
+
+
     async function handleSearch() {
-        // Fetch top 5 parks based on selected parks and activities
         setLoading(true);
+        setError('');
         try {
-            const response = await axios.get(
-                `https://developer.nps.gov/api/v1/parks?api_key=VH0NU4pT0TJAlBErq2450GOdx2Rhf2gX3cQcJMM8&limit=5`,
-                {
-                    params: {
-                        parks: selectedParks.map((park) => park.fullName).join(','),
-                        activities: selectedActivities.join(',')
-                    }
+            console.log('Selected Parks:', selectedParks);
+            console.log('Selected Activities:', selectedActivities);
+
+            if (selectedActivities.length === 0) {
+                setError('Please select at least one activity.');
+                return;
+            }
+
+            // Create the query parameter with activity names
+            const activityQuery = selectedActivities.map(activity => `"${activity}"`).join(', ');
+            console.log('Activity Query:', activityQuery);
+
+            const apiUrl = `https://developer.nps.gov/api/v1/activities/parks`;
+            console.log('Request URL:', apiUrl);
+
+            // Make the API call
+            const response = await axios.get(apiUrl, {
+                params: {
+                    q: activityQuery, // Pass the names in the `q` parameter
+                    limit: 50,
+                    api_key: 'VH0NU4pT0TJAlBErq2450GOdx2Rhf2gX3cQcJMM8'
                 }
-            );
-            setTopParks(response.data.data);
-            setIsModalOpen(true); // Open modal with results
+            });
+
+            console.log('API Response:', response.data);
+
+            if (response.data.total === '0') {
+                setError('No parks found for the selected activities.');
+            } else {
+                // Extract parks from each activity's response
+                const parksWithActivities = response.data.data.flatMap(activity => activity.parks);
+                setTopParks(parksWithActivities);
+                setIsModalOpen(true); // Show the modal with the search results
+            }
         } catch (e) {
-            setError(`Something went wrong: ` + e.message);
+            setError(`Something went wrong: ${e.message}`);
         } finally {
             setLoading(false);
         }
     }
+
+
+
 
     function handleCloseModal() {
         setIsModalOpen(false);
@@ -188,13 +218,18 @@ function handleActivitySelection(e) {
 
                 <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
                     <h2>Top 5 Parks</h2>
-                    {topParks.map((park) => (
-                        <div key={park.id}>
-                            <h3>{park.fullName}</h3>
-                            <p>{park.description}</p>
-                            <button onClick={() => savePark(park)}>Save Park</button>
-                        </div>
-                    ))}
+                    {topParks.length > 0 ? (
+                        topParks.map((park) => (
+                            <div key={park.id}>
+                                <h3>{park.fullName}</h3>
+                                <p>{park.description}</p>
+                                <p>{park.hasSelectedActivities ? '✅ Includes selected activities' : '⚠️ Does not include all selected activities'}</p>
+                                <button onClick={() => savePark(park)}>Save Park</button>
+                            </div>
+                        ))
+                    ) : (
+                        <p>No parks match the selected activities.</p>
+                    )}
                     <button onClick={handleSearchAgain}>Search Again</button>
                 </Modal>
 
