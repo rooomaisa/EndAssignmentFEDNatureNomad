@@ -100,6 +100,19 @@ function handleActivitySelection(e) {
     );
 }
 
+    function filterParksByActivities(parks, selectedActivities) {
+        return parks.map(park => {
+            // Check if the park includes all selected activities
+            const parkActivities = park.activities || [];
+            const hasSelectedActivities = selectedActivities.every(activity => parkActivities.includes(activity));
+
+            // Return the park with the new flag
+            return { ...park, hasSelectedActivities };
+        });
+    }
+
+
+
 
     async function handleSearch() {
         setLoading(true);
@@ -155,9 +168,24 @@ function handleActivitySelection(e) {
 // Convert the map to an array and sort it by count in descending order
             const sortedParks = Array.from(parkFrequencyMap.values()).sort((a, b) => b.count - a.count);
             console.log('Sorted Parks:', sortedParks);
-
             const top10Parks = sortedParks.slice(0, 10);
-            setTopParks(top10Parks);
+
+            const parksWithActivities = await Promise.all(
+                top10Parks.map(async (park) => {
+                    const response = await axios.get(
+                        `https://developer.nps.gov/api/v1/parks?parkCode=${park.parkCode}&api_key=VH0NU4pT0TJAlBErq2450GOdx2Rhf2gX3cQcJMM8`
+                    );
+                    const parkActivities = response.data.data[0].activities.map((activity) => activity.name);
+
+                    const hasSelectedActivities = selectedActivities.every((activity) =>
+                        parkActivities.includes(activity)
+                    );
+
+                    return { ...park, hasSelectedActivities };
+                })
+            );
+
+            setTopParks(parksWithActivities);
             setIsModalOpen(true); // Show the modal with the search results
 
         } catch (e) {
@@ -237,20 +265,21 @@ function handleActivitySelection(e) {
                     Search
                 </button>
 
+
                 <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
                     <h2>Top 5 Parks</h2>
-                    {topParks.length > 0 ? (
-                        topParks.map((park) => (
-                            <div key={park.id}>
-                                <h3>{park.fullName}</h3>
-                                <p>{park.description}</p>
-                                <p>{park.hasSelectedActivities ? '✅ Includes selected activities' : '⚠️ Does not include all selected activities'}</p>
-                                <button onClick={() => savePark(park)}>Save Park</button>
-                            </div>
-                        ))
-                    ) : (
-                        <p>No parks match the selected activities.</p>
-                    )}
+                {topParks.length > 0 ? (
+                    topParks.map((park) => (
+                        <div key={park.id}>
+                            <h3>{park.fullName}</h3>
+                            <p>{park.description}</p>
+                            <p>{park.hasSelectedActivities ? '✅ Includes selected activities' : '⚠️ Does not include all selected activities'}</p>
+                            <button onClick={() => savePark(park)}>Save Park</button>
+                        </div>
+                    ))
+                ) : (
+                    <p>No parks match the selected activities.</p>
+                )}
                     <button onClick={handleSearchAgain}>Search Again</button>
                 </Modal>
 
@@ -271,6 +300,8 @@ function handleActivitySelection(e) {
                 {/*    )}*/}
                 {/*    <button onClick={handleSearchAgain}>Search Again</button>*/}
                 {/*</Modal>*/}
+
+
 
 
             </div>
