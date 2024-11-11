@@ -131,14 +131,35 @@ function handleActivitySelection(e) {
 
             console.log('API Response:', response.data);
 
-            if (response.data.total === '0') {
-                setError('No parks found for the selected activities.');
-            } else {
-                // Extract parks from each activity's response
-                const parksWithActivities = response.data.data.flatMap(activity => activity.parks);
-                setTopParks(parksWithActivities);
-                setIsModalOpen(true); // Show the modal with the search results
-            }
+
+            const parkFrequencyMap = new Map();
+            // Counting the frequency of parks
+            response.data.data.forEach(activity => {
+                activity.parks.forEach(park => {
+                    console.log('Processing park:', park.parkCode);  // Debug: Log the park being processed
+
+                    if (parkFrequencyMap.has(park.parkCode)) {
+                        parkFrequencyMap.set(park.parkCode, {
+                            ...parkFrequencyMap.get(park.parkCode),
+                            count: parkFrequencyMap.get(park.parkCode).count + 1
+                        });
+                    } else {
+                        parkFrequencyMap.set(park.parkCode, { ...park, count: 1 });
+                    }
+                });
+            });
+
+// After the loop, log the frequency map
+            console.log('Park Frequency Map:', parkFrequencyMap);
+
+// Convert the map to an array and sort it by count in descending order
+            const sortedParks = Array.from(parkFrequencyMap.values()).sort((a, b) => b.count - a.count);
+            console.log('Sorted Parks:', sortedParks);
+
+            const top10Parks = sortedParks.slice(0, 10);
+            setTopParks(top10Parks);
+            setIsModalOpen(true); // Show the modal with the search results
+
         } catch (e) {
             setError(`Something went wrong: ${e.message}`);
         } finally {
@@ -232,6 +253,24 @@ function handleActivitySelection(e) {
                     )}
                     <button onClick={handleSearchAgain}>Search Again</button>
                 </Modal>
+
+
+                {/*<Modal isOpen={isModalOpen} onClose={handleCloseModal}>*/}
+                {/*    <h2>Top 5 Parks</h2>*/}
+                {/*    {topParks.length > 0 ? (*/}
+                {/*        topParks.map((park) => (*/}
+                {/*            <div key={park.id}>*/}
+                {/*                <h3>{park.fullName}</h3>*/}
+                {/*                <p>{park.description}</p>*/}
+                {/*                <p>{park.hasSelectedActivities ? '✅ Includes selected activities' : '⚠️ Does not include all selected activities'}</p>*/}
+                {/*                <button onClick={() => savePark(park)}>Save Park</button>*/}
+                {/*            </div>*/}
+                {/*        ))*/}
+                {/*    ) : (*/}
+                {/*        <p>No parks match the selected activities.</p>*/}
+                {/*    )}*/}
+                {/*    <button onClick={handleSearchAgain}>Search Again</button>*/}
+                {/*</Modal>*/}
 
 
             </div>
