@@ -40,7 +40,6 @@ function SavedParksProvider({ children }) {
                         headers: {
                             "Content-Type": "application/json",
                             Authorization: `Bearer ${token}`,
-                            // "X-Api-Key": "naturenomad:Ic0HJDZjRv9QEebv4tta"
                         },
                     }
                 );
@@ -74,7 +73,6 @@ function SavedParksProvider({ children }) {
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
-                        // "X-Api-Key": "naturenomad:Ic0HJDZjRv9QEebv4tta"
                     },
                 }
             );
