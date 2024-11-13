@@ -27,7 +27,7 @@ function SearchComponent() {
             setError('');
 
             try{
-                const response = await axios.get(`https://developer.nps.gov/api/v1/activities?api_key=VH0NU4pT0TJAlBErq2450GOdx2Rhf2gX3cQcJMM8`,{signal: controller.signal,});
+                const response = await axios.get(`https://developer.nps.gov/api/v1/activities?api_key=${import.meta.env.VITE_API_KEY}`,{signal: controller.signal,});
                 setAvailableActivities(response.data.data);
                 console.log(response.data.data)
             } catch (e) {
@@ -64,7 +64,7 @@ function SearchComponent() {
         const fetchParksSuggestions = debounce(async () => {
             try {
                 const response = await axios.get(
-                    `https://developer.nps.gov/api/v1/parks?api_key=VH0NU4pT0TJAlBErq2450GOdx2Rhf2gX3cQcJMM8&limit=50&start=0&q=${searchTerm}`,
+                    `https://developer.nps.gov/api/v1/parks?api_key=${import.meta.env.VITE_API_KEY}&limit=50&start=0&q=${searchTerm}`,
                     { signal: controller.signal }
                 );
                 setSuggestedParks(response.data.data);
@@ -124,7 +124,7 @@ function handleActivitySelection(e) {
             selectedParks.map(async (park) => {
 
                 const response = await axios.get(
-                    `https://developer.nps.gov/api/v1/parks?parkCode=${park.parkCode}&api_key=VH0NU4pT0TJAlBErq2450GOdx2Rhf2gX3cQcJMM8`
+                    `https://developer.nps.gov/api/v1/parks?parkCode=${park.parkCode}&api_key=${import.meta.env.VITE_API_KEY}`
                 );
                 const parkData = response.data.data[0];
                 const parkActivities = parkData.activities.map((activity) => activity.name);
@@ -177,7 +177,7 @@ function handleActivitySelection(e) {
                 params: {
                     q: activityQuery,
                     limit: 50,
-                    api_key: 'VH0NU4pT0TJAlBErq2450GOdx2Rhf2gX3cQcJMM8'
+                    api_key: import.meta.env.VITE_API_KEY
                 }
             });
 
@@ -214,7 +214,7 @@ function handleActivitySelection(e) {
             const parksWithActivities = await Promise.all(
                 top10Parks.map(async (park) => {
                     const response = await axios.get(
-                        `https://developer.nps.gov/api/v1/parks?parkCode=${park.parkCode}&api_key=VH0NU4pT0TJAlBErq2450GOdx2Rhf2gX3cQcJMM8`
+                        `https://developer.nps.gov/api/v1/parks?parkCode=${park.parkCode}&api_key=${import.meta.env.VITE_API_KEY}`
                     );
                     const parkData = response.data.data[0];
                     const parkDescription = parkData.description;
