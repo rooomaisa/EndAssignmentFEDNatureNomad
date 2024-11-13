@@ -128,6 +128,7 @@ function handleActivitySelection(e) {
                 );
                 const parkData = response.data.data[0];
                 const parkActivities = parkData.activities.map((activity) => activity.name);
+                const imageUrl = parkData.images[0]?.url || '';
 
                 const missingActivities = selectedActivities.filter(
                     (activity) => !parkActivities.includes(activity)
@@ -140,6 +141,7 @@ function handleActivitySelection(e) {
                     ),
                     missingActivities,
                     description: parkData.description,
+                    imageUrl,
                 };
             })
         );
@@ -217,6 +219,7 @@ function handleActivitySelection(e) {
                     const parkData = response.data.data[0];
                     const parkDescription = parkData.description;
                     const parkActivities = response.data.data[0].activities.map((activity) => activity.name);
+                    const imageUrl = parkData.images[0]?.url || '';  // Select the first image if available
 
                     const missingActivities = selectedActivities.filter(
                         (activity) => !parkActivities.includes(activity)
@@ -228,9 +231,11 @@ function handleActivitySelection(e) {
 
                     return {
                         ...park,
-                        hasSelectedActivities,
+                        hasSelectedActivities: selectedActivities.every((activity) =>
+                            parkData.activities.some((a) => a.name === activity)),
                         missingActivities,
-                        description: parkDescription
+                        description: parkDescription,
+                        imageUrl,
                     };
                 })
             );
@@ -347,6 +352,9 @@ function handleActivitySelection(e) {
                                     <span style={{color: 'blue', fontWeight: 'bold'}}>Our Recommendation</span>
                                 )}
                                 <h3>{park.fullName}</h3>
+                                {park.imageUrl && (
+                                    <img src={park.imageUrl} alt={`${park.fullName} image`} width="100" height="75" />
+                                )}
                                 <p>{park.description}</p>
                                 <p>{park.hasSelectedActivities ? '✅ Includes selected activities' : '⚠️ Does not include all selected activities'}</p>
 
