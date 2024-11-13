@@ -59,8 +59,8 @@ function SearchComponent() {
         }
 
 
-        async function fetchParksSuggestions() {
-            const controller = new AbortController();
+         function fetchParksSuggestions(controller) {
+            // const controller = new AbortController();
 
             return debounce(async () => {
             try {
@@ -83,19 +83,16 @@ function SearchComponent() {
                 return;
             }
 
+            const controller = new AbortController();
             const debouncedFetch = fetchParksSuggestions(); // Call the named function
             debouncedFetch();
 
+
             return () => {
+                controller.abort();
                 debouncedFetch.cancel(); // Cancel the debounce call
             };
         }, [searchTerm]);
-
-
-
-    //     fetchParksSuggestions();
-    //     return () => controller.abort();
-    // }, [searchTerm]);
 
 
 
