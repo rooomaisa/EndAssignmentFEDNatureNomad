@@ -17,7 +17,7 @@ function SearchComponent() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const {savePark} = useContext(SavedParksContext);
 
-// keys zijn overal weg!!!
+
 
     useEffect(() => {
         const controller = new AbortController();
@@ -58,11 +58,10 @@ function SearchComponent() {
             return;
         }
 
+        const controller = new AbortController();
 
-         function fetchParksSuggestions(controller) {
-            // const controller = new AbortController();
 
-            return debounce(async () => {
+        const fetchParksSuggestions = debounce(async () => {
             try {
                 const response = await axios.get(
                     `https://developer.nps.gov/api/v1/parks?api_key=VH0NU4pT0TJAlBErq2450GOdx2Rhf2gX3cQcJMM8&limit=50&start=0&q=${searchTerm}`,
@@ -74,25 +73,16 @@ function SearchComponent() {
                     setError(`Something went wrong: ` + e.message);
                 }
             }
-        }, 300); // Set debounce delay of 300ms
-        }
+        }, 300);
 
-        useEffect(() => {
-            if (searchTerm.trim() === '') {
-                setSuggestedParks([]);
-                return;
-            }
-
-            const controller = new AbortController();
-            const debouncedFetch = fetchParksSuggestions(); // Call the named function
-            debouncedFetch();
+        fetchParksSuggestions();
 
 
-            return () => {
-                controller.abort();
-                debouncedFetch.cancel(); // Cancel the debounce call
-            };
-        }, [searchTerm]);
+        return () => {
+            controller.abort();
+            fetchParksSuggestions.cancel();
+        };
+    }, [searchTerm]);
 
 
 
@@ -101,8 +91,8 @@ function SearchComponent() {
         if (!selectedParks.find((p) => p.id === park.id)) {
             setSelectedParks((prevSelected) => [...prevSelected, park]);
         }
-        setSearchTerm(''); // clear search after selection
-        setSuggestedParks([]); // clear suggestions after selection
+        setSearchTerm('');
+        setSuggestedParks([]);
     }
 
     function removeSelectedPark(parkId) {
@@ -173,17 +163,17 @@ function handleActivitySelection(e) {
             const selectedParksData = await fetchPreselectedParksData();
             console.log("Preselected Parks Data:", selectedParksData);
 
-            // Create the query parameter with activity names
+
             const activityQuery = selectedActivities.map(activity => `"${activity}"`).join(', ');
             console.log('Activity Query:', activityQuery);
 
             const apiUrl = `https://developer.nps.gov/api/v1/activities/parks`;
             console.log('Request URL:', apiUrl);
 
-            // Make the API call
+
             const response = await axios.get(apiUrl, {
                 params: {
-                    q: activityQuery, // Pass the names in the `q` parameter
+                    q: activityQuery,
                     limit: 50,
                     api_key: 'VH0NU4pT0TJAlBErq2450GOdx2Rhf2gX3cQcJMM8'
                 }
@@ -193,10 +183,10 @@ function handleActivitySelection(e) {
 
 
             const parkFrequencyMap = new Map();
-            // Counting the frequency of parks
+
             response.data.data.forEach(activity => {
                 activity.parks.forEach(park => {
-                    console.log('Processing park:', park.parkCode);  // Debug: Log the park being processed
+                    console.log('Processing park:', park.parkCode);
 
                     if (parkFrequencyMap.has(park.parkCode)) {
                         parkFrequencyMap.set(park.parkCode, {
@@ -209,10 +199,10 @@ function handleActivitySelection(e) {
                 });
             });
 
-// After the loop, log the frequency map
+
             console.log('Park Frequency Map:', parkFrequencyMap);
 
-// Convert the map to an array and sort it by count in descending order
+
             const sortedParks = Array.from(parkFrequencyMap.values()).sort((a, b) => b.count - a.count);
             console.log('Sorted Parks:', sortedParks);
             const top10Parks = sortedParks.slice(0, 10);
@@ -254,7 +244,7 @@ function handleActivitySelection(e) {
 
 
             setTopParks(finalTop10Parks);
-            setIsModalOpen(true); // Show the modal with the search results
+            setIsModalOpen(true);
 
         } catch (e) {
             setError(`Something went wrong: ${e.message}`);
@@ -299,7 +289,7 @@ function handleActivitySelection(e) {
 
             <div className="suggestions">
                 {suggestedParks
-                    .filter((park) => park.fullName.toLowerCase().includes(searchTerm.toLowerCase())) // Front-end filtering
+                    .filter((park) => park.fullName.toLowerCase().includes(searchTerm.toLowerCase()))
                     .slice(0, 10)
                     .map((park) => (
                         <div
@@ -313,17 +303,7 @@ function handleActivitySelection(e) {
             </div>
 
 
-            {/*<div className="suggestions">*/}
-            {/*    {suggestedParks.slice(0, 10).map((park) => (*/}
-            {/*        <div*/}
-            {/*            key={park.id}*/}
-            {/*            className="suggestion"*/}
-            {/*            onClick={() => handleParkSelection(park)}*/}
-            {/*        >*/}
-            {/*            {park.fullName}*/}
-            {/*        </div>*/}
-            {/*    ))}*/}
-            {/*</div>*/}
+
 
             <div className="selected-parks">
                 <h2>Selected Parks</h2>
@@ -387,35 +367,8 @@ function handleActivitySelection(e) {
             </Modal>
 
 
-            {/*<Modal isOpen={isModalOpen} onClose={handleCloseModal}>*/}
-            {/*    <h2>Top 10 Parks</h2>*/}
-            {/*{topParks.length > 0 ? (*/}
-            {/*    topParks.map((park) => (*/}
-            {/*        <div key={park.id}>*/}
-            {/*            <h3>{park.fullName}</h3>*/}
-            {/*            <p>{park.description}</p>*/}
-            {/*            <p>{park.hasSelectedActivities ? '✅ Includes selected activities' : '⚠️ Does not include all selected activities'}</p>*/}
-
-            {/*            {park.missingActivities.length > 0 && (*/}
-            {/*                <p>*/}
-            {/*                    ⚠️ Missing activities: {park.missingActivities.join(', ')}*/}
-            {/*                </p>*/}
-            {/*            )}*/}
-
-
-            {/*            <button onClick={() => savePark(park)}>Save Park</button>*/}
-            {/*        </div>*/}
-            {/*    ))*/}
-            {/*) : (*/}
-            {/*    <p>No parks match the selected activities.</p>*/}
-            {/*)}*/}
-            {/*    <button onClick={handleSearchAgain}>Search Again</button>*/}
-            {/*</Modal>*/}
-
-
         </div>
-
     );
-}
+    }
 
-export default SearchComponent;
+ export default SearchComponent;
