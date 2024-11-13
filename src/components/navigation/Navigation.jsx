@@ -23,16 +23,23 @@ function Navigation() {
 
             {isAuth ? (
                 <div>
-                    {/*<span> Welcome, {user} ! </span>*/}
                     <ul>
                         <li>
-                            <NavLink to="/search" className={({ isActive }) => (isActive ? 'active-link' : 'default-link')}>
+                            <NavLink to="/search"
+                                     className={({isActive}) => (isActive ? 'active-link' : 'default-link')}>
                                 Search
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/myfavourites" className={({ isActive }) => (isActive ? 'active-link' : 'default-link')}>
+                            <NavLink to="/myfavourites"
+                                     className={({isActive}) => (isActive ? 'active-link' : 'default-link')}>
                                 My Favourites
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/profile"
+                                     className={({isActive}) => (isActive ? 'active-link' : 'default-link')}>
+                                My profile
                             </NavLink>
                         </li>
                     </ul>

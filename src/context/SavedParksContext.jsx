@@ -1,11 +1,10 @@
 import React, {createContext, useContext, useState} from 'react';
-import {AuthContext} from "./AuthContext.jsx";
 import axios from "axios";
 
 export const SavedParksContext = createContext({});
 
 function SavedParksProvider({ children }) {
-    // const {user} = useContext(AuthContext);
+
     const initialSavedParks = JSON.parse(localStorage.getItem('savedParks') || '[]');
     const [savedParks, setSavedParks] = useState(initialSavedParks);
     const [error, setError] = useState('');
@@ -14,7 +13,7 @@ function SavedParksProvider({ children }) {
 
     async function savePark(newPark) {
 
-        const parkAlreadySaved = savedParks.some((park) => park.id === newPark.id);
+        const parkAlreadySaved = savedParks.some((park) => park.parkCode === newPark.parkCode);
         if (parkAlreadySaved){
             console.log("this park is already saved");
             setNotification( 'this park is already saved in your favorites ');
@@ -32,8 +31,7 @@ function SavedParksProvider({ children }) {
         try {
             const token = localStorage.getItem('token');
             const parksDataString= JSON.stringify(updatedParks)
-            // const username = user.username;
-            // if ( user?.username){
+
 
             const response =
                 await axios.put(`https://api.datavortex.nl/naturenomad/info`,
@@ -42,17 +40,47 @@ function SavedParksProvider({ children }) {
                         headers: {
                             "Content-Type": "application/json",
                             Authorization: `Bearer ${token}`,
-                            // "X-API-Key": "naturenomad:Ic0HJDZjRv9QEebv4tta",
+                            // "X-Api-Key": "naturenomad:Ic0HJDZjRv9QEebv4tta"
                         },
                     }
                 );
             setSavedParks(JSON.parse(response.data.info));
             console.log('park saves succesfully:', response.data);
 
-            // } else {
-            //     console.error("User's username is missing from AuthContext.");
-            // }
 
+        } catch (e) {
+            console.error(e);
+            setError(`Something went wrong: ` + e.message);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    async function deletePark(parkCode) {
+        const updatedParks = savedParks.filter((park) => park.parkCode !== parkCode);
+        setSavedParks(updatedParks);
+
+        setLoading(true);
+        setError('');
+
+        try {
+            const token = localStorage.getItem('token');
+            const parksDataString = JSON.stringify(updatedParks);
+
+            const response = await axios.put(
+                `https://api.datavortex.nl/naturenomad/info`,
+                { info: parksDataString },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                        // "X-Api-Key": "naturenomad:Ic0HJDZjRv9QEebv4tta"
+                    },
+                }
+            );
+
+            setSavedParks(JSON.parse(response.data.info));
+            console.log('Park deleted successfully:', response.data);
         } catch (e) {
             console.error(e);
             setError(`Something went wrong: ` + e.message);
@@ -64,8 +92,11 @@ function SavedParksProvider({ children }) {
 
 
 
-    return (
-        <SavedParksContext.Provider value={{ savedParks, setSavedParks, savePark }}>
+
+
+
+            return (
+        <SavedParksContext.Provider value={{ savedParks, setSavedParks, savePark, deletePark }}>
             {children}
             {notification && <div className={`notification`}>{notification}</div> }
         </SavedParksContext.Provider>

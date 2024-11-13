@@ -129,6 +129,9 @@ function handleActivitySelection(e) {
                 const parkData = response.data.data[0];
                 const parkActivities = parkData.activities.map((activity) => activity.name);
                 const imageUrl = parkData.images[0]?.url || '';
+                const directionsUrl = parkData.directionsUrl || '';
+                const entranceFees = parkData.entranceFees || [];
+                const entrancePasses = parkData.entrancePasses || [];
 
                 const missingActivities = selectedActivities.filter(
                     (activity) => !parkActivities.includes(activity)
@@ -142,6 +145,9 @@ function handleActivitySelection(e) {
                     missingActivities,
                     description: parkData.description,
                     imageUrl,
+                    directionsUrl,
+                    entranceFees,
+                    entrancePasses,
                 };
             })
         );
