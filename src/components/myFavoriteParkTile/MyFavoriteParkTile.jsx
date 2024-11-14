@@ -3,12 +3,17 @@ import './MyFavoriteParkTile.css'
 import { SavedParksContext } from '../../context/SavedParksContext';
 
 const MyFavoriteParkTile = ({ park }) => {
-    const { deletePark } = useContext(SavedParksContext);
+    const { fullParkDetails, deletePark } = useContext(SavedParksContext);
+
+    console.log("Rendering park in tile:", park);
 
     return (
         <div className="park-tile">
             <h3>{park.fullName}</h3>
-            <p>{park.location}</p>
+            {park.imageUrl && (
+                <img src={park.imageUrl} alt={`${park.fullName} image`} width="100" height="75" />
+            )}
+            <p>Location: {park.location}</p>
             <p>{park.description}</p>
 
 

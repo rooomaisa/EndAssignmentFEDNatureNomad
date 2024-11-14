@@ -8,6 +8,7 @@ function SavedParksProvider({ children }) {
     const { user } = useContext(AuthContext);
     const initialSavedParks = JSON.parse(localStorage.getItem('savedParks') || '[]');
     const [savedParks, setSavedParks] = useState(initialSavedParks);
+    const [fullParkDetails, setFullParkDetails] = useState([]);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false)
     const [notification, setNotification] = useState('');
@@ -103,14 +104,18 @@ function SavedParksProvider({ children }) {
                         `https://developer.nps.gov/api/v1/parks?parkCode=${savedPark.parkCode}&api_key=${import.meta.env.VITE_API_KEY}`
                     );
 
-                    const parkData = response.data.data[0];
+                    const data = response.data.data
+                    console.log("Data received from fetchSavedParks:", data);
 
-                    // Extract the necessary information from the API response
+                    const parkData = response.data.data[0];
                     const parkActivities = parkData.activities.map((activity) => activity.name);
                     const imageUrl = parkData.images[0]?.url || '';  // Get the first image URL, or an empty string if no images
                     const directionsUrl = parkData.directionsUrl || '';  // Get the directions URL, or an empty string if not available
                     const entranceFees = parkData.entranceFees || [];  // Get the entrance fees, or an empty array if none
                     const entrancePasses = parkData.entrancePasses || [];  // Get the entrance passes, or an empty array if none
+                    const fullName = parkData.fullName || ''; // Full name of the park
+                    const location = parkData.states || ''; // Location (states) of the park
+                    const description = parkData.description || '';
 
                     return {
                         ...savedPark,  // Keep the existing park data (like parkCode)
@@ -119,11 +124,15 @@ function SavedParksProvider({ children }) {
                         directionsUrl,
                         entranceFees,
                         entrancePasses,
+                        fullName,
+                        location,
+                        description,
                     };
                 })
             );
 
             // Store the full details of the parks in the state
+            console.log("this is the fullparks detail",fullParkDetails);
             setFullParkDetails(fullParkDetails);
         } catch (e) {
             console.error("Error fetching full park details:", e);
@@ -166,7 +175,7 @@ function SavedParksProvider({ children }) {
     }
 
     useEffect(() => {
-        if (savedParks.length > 0) {
+        if (savedParks) {
             fetchFullParkDetails();
         }
     }, [savedParks]);
@@ -175,7 +184,7 @@ function SavedParksProvider({ children }) {
 
 
     return (
-        <SavedParksContext.Provider value={{ savedParks, setSavedParks, savePark, deletePark, fetchSavedParks  }}>
+        <SavedParksContext.Provider value={{ savedParks, setSavedParks, savePark, deletePark, fetchSavedParks, fetchFullParkDetails, fullParkDetails  }}>
             {children}
             {notification && <div className={`notification`}>{notification}</div> }
         </SavedParksContext.Provider>
