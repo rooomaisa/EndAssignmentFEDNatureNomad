@@ -1,10 +1,16 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import { SavedParksContext } from '../../context/SavedParksContext';
 import MyFavoriteParkTile from "../../components/myFavoriteParkTile/MyFavoriteParkTile.jsx";
 import './MyFavouritesPage.css'
 
 function MyFavouritesPage() {
-    const {savedParks} = useContext(SavedParksContext);
+    const {savedParks, } = useContext(SavedParksContext);
+
+
+
+    if (!savedParks || savedParks.length === 0) {
+        return <div>No saved parks yet. Please save some parks!</div>;
+    }
 
     return (
         <div>
