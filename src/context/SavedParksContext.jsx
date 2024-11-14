@@ -12,31 +12,6 @@ function SavedParksProvider({ children }) {
     const [loading, setLoading] = useState(false)
     const [notification, setNotification] = useState('');
 
-    async function fetchSavedParks() {
-        if (!user) return;
-
-        try {
-            setLoading(true);
-            const token = localStorage.getItem('token');
-
-            const response = await axios.get(
-                `https://api.datavortex.nl/naturenomad/users/${user.username}/info`,
-                {
-                    headers: {
-                        "Authorization": `Bearer ${token}`,
-                    },
-                }
-            );
-            const fetchedParks = JSON.parse(response.data.info);
-            setSavedParks(fetchedParks);
-            localStorage.setItem('savedParks', JSON.stringify(fetchedParks));
-        } catch (e) {
-            console.error("Error fetching saved parks:", e);
-            setError("Something went wrong while fetching saved parks.");
-        } finally {
-            setLoading(false);
-        }
-    }
 
     async function savePark(newPark) {
 
@@ -48,7 +23,8 @@ function SavedParksProvider({ children }) {
             return;
         }
 
-        const updatedParks = [...savedParks, newPark];
+        // const updatedParks = [...savedParks, newPark];
+        const updatedParks = [...savedParks, { parkCode: newPark.parkCode }];
         setSavedParks(updatedParks);
 
         setLoading(true);
@@ -88,6 +64,73 @@ function SavedParksProvider({ children }) {
         }
     }
 
+    async function fetchSavedParks() {
+        if (!user) return;
+
+        try {
+            setLoading(true);
+            const token = localStorage.getItem('token');
+
+            const response = await axios.get(
+                `https://api.datavortex.nl/naturenomad/users/${user.username}/info`,
+                {
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                    },
+                }
+            );
+
+            console.log(response.data);
+
+            const savedParkCodes = (response.data);
+            console.log(savedParkCodes)
+            setSavedParks(savedParkCodes);
+            // localStorage.setItem('savedParks', JSON.stringify(fetchedParks));
+        } catch (e) {
+            console.error("Error fetching saved parks:", e);
+            setError("Something went wrong while fetching saved parks.");
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    async function fetchFullParkDetails() {
+        try {
+            const fullParkDetails = await Promise.all(
+                savedParks.map(async (savedPark) => {
+                    // Fetch the full details for each park using the parkCode
+                    const response = await axios.get(
+                        `https://developer.nps.gov/api/v1/parks?parkCode=${savedPark.parkCode}&api_key=${import.meta.env.VITE_API_KEY}`
+                    );
+
+                    const parkData = response.data.data[0];
+
+                    // Extract the necessary information from the API response
+                    const parkActivities = parkData.activities.map((activity) => activity.name);
+                    const imageUrl = parkData.images[0]?.url || '';  // Get the first image URL, or an empty string if no images
+                    const directionsUrl = parkData.directionsUrl || '';  // Get the directions URL, or an empty string if not available
+                    const entranceFees = parkData.entranceFees || [];  // Get the entrance fees, or an empty array if none
+                    const entrancePasses = parkData.entrancePasses || [];  // Get the entrance passes, or an empty array if none
+
+                    return {
+                        ...savedPark,  // Keep the existing park data (like parkCode)
+                        activities: parkActivities,
+                        imageUrl,
+                        directionsUrl,
+                        entranceFees,
+                        entrancePasses,
+                    };
+                })
+            );
+
+            // Store the full details of the parks in the state
+            setFullParkDetails(fullParkDetails);
+        } catch (e) {
+            console.error("Error fetching full park details:", e);
+        }
+    }
+
+
 
 
     async function deletePark(parkCode) {
@@ -122,17 +165,17 @@ function SavedParksProvider({ children }) {
         }
     }
 
-    // useEffect(() => {
-    //     if (user) {
-    //         fetchSavedParks();
-    //     }
-    // }, [user]);
+    useEffect(() => {
+        if (savedParks.length > 0) {
+            fetchFullParkDetails();
+        }
+    }, [savedParks]);
 
 
 
 
     return (
-        <SavedParksContext.Provider value={{ savedParks, setSavedParks, savePark, deletePark,  }}>
+        <SavedParksContext.Provider value={{ savedParks, setSavedParks, savePark, deletePark, fetchSavedParks  }}>
             {children}
             {notification && <div className={`notification`}>{notification}</div> }
         </SavedParksContext.Provider>

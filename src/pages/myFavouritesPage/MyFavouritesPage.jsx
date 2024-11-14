@@ -4,8 +4,12 @@ import MyFavoriteParkTile from "../../components/myFavoriteParkTile/MyFavoritePa
 import './MyFavouritesPage.css'
 
 function MyFavouritesPage() {
-    const {savedParks, } = useContext(SavedParksContext);
+    const {savedParks,fetchSavedParks } = useContext(SavedParksContext);
 
+    useEffect(() => {
+        console.log('Component mounted. Fetching saved parks...');
+        fetchSavedParks(); // Ensure this is called
+    }, []);
 
 
     if (!savedParks || savedParks.length === 0) {
