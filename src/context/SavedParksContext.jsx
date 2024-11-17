@@ -24,7 +24,7 @@ function SavedParksProvider({ children }) {
             return;
         }
 
-        // const updatedParks = [...savedParks, newPark];
+
         const updatedParks = [...savedParks, { parkCode: newPark.parkCode }];
         setSavedParks(updatedParks);
 
@@ -53,8 +53,6 @@ function SavedParksProvider({ children }) {
 
 
             setSavedParks(response.data.info)
-            // const savedParksFromResponse = JSON.parse(response.data.info);
-            // setSavedParks(savedParksFromResponse);
             console.log('Park saved successfully:', response.data);
 
         } catch (e) {
@@ -86,7 +84,7 @@ function SavedParksProvider({ children }) {
             const savedParkCodes = (response.data);
             console.log(savedParkCodes)
             setSavedParks(savedParkCodes);
-            // localStorage.setItem('savedParks', JSON.stringify(fetchedParks));
+
         } catch (e) {
             console.error("Error fetching saved parks:", e);
             setError("Something went wrong while fetching saved parks.");
@@ -99,7 +97,7 @@ function SavedParksProvider({ children }) {
         try {
             const fullParkDetails = await Promise.all(
                 savedParks.map(async (savedPark) => {
-                    // Fetch the full details for each park using the parkCode
+
                     const response = await axios.get(
                         `https://developer.nps.gov/api/v1/parks?parkCode=${savedPark.parkCode}&api_key=${import.meta.env.VITE_API_KEY}`
                     );
@@ -109,16 +107,16 @@ function SavedParksProvider({ children }) {
 
                     const parkData = response.data.data[0];
                     const parkActivities = parkData.activities.map((activity) => activity.name);
-                    const imageUrl = parkData.images[0]?.url || '';  // Get the first image URL, or an empty string if no images
-                    const directionsUrl = parkData.directionsUrl || '';  // Get the directions URL, or an empty string if not available
-                    const entranceFees = parkData.entranceFees || [];  // Get the entrance fees, or an empty array if none
-                    const entrancePasses = parkData.entrancePasses || [];  // Get the entrance passes, or an empty array if none
-                    const fullName = parkData.fullName || ''; // Full name of the park
-                    const location = parkData.states || ''; // Location (states) of the park
+                    const imageUrl = parkData.images[0]?.url || '';
+                    const directionsUrl = parkData.directionsUrl || '';
+                    const entranceFees = parkData.entranceFees || [];
+                    const entrancePasses = parkData.entrancePasses || [];
+                    const fullName = parkData.fullName || '';
+                    const location = parkData.states || '';
                     const description = parkData.description || '';
 
                     return {
-                        ...savedPark,  // Keep the existing park data (like parkCode)
+                        ...savedPark,
                         activities: parkActivities,
                         imageUrl,
                         directionsUrl,
@@ -131,7 +129,7 @@ function SavedParksProvider({ children }) {
                 })
             );
 
-            // Store the full details of the parks in the state
+
             console.log("this is the fullparks detail",fullParkDetails);
             setFullParkDetails(fullParkDetails);
         } catch (e) {

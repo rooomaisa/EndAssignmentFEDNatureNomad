@@ -3,7 +3,7 @@ import './MyFavoriteParkTile.css'
 import { SavedParksContext } from '../../context/SavedParksContext';
 
 const MyFavoriteParkTile = ({ park }) => {
-    const { fullParkDetails, deletePark } = useContext(SavedParksContext);
+    const {  deletePark } = useContext(SavedParksContext);
 
     console.log("Rendering park in tile:", park);
 
