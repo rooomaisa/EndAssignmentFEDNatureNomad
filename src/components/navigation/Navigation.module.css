@@ -1,3 +1,5 @@
+
+/* Navigation */
 .nav {
     background-color: var(--color-secondary);
     display: flex;
@@ -73,88 +75,88 @@
 
 
 
-/*!*.main-navigation {*!*/
-/*!*    background-color: var(--color-secondary);*!*/
-/*!*    padding: 16px 0;*!*/
-/*!*}*!*/
+.main-navigation {
+    background-color: var(--color-secondary);
+    padding: 16px 0;
+}
 
-/*!*.inner-nav-container {*!*/
-/*!*    flex-basis: 1400px;*!*/
-/*!*    flex-shrink: 1;*!*/
-/*!*    flex-grow: 0;*!*/
-/*!*    !*We voegen margin toe aan de linker- en rechterkant, zodat de content nooit helemaal tegen de rand gedrukt kan worden*!*!*/
-/*!*    margin: 0 20px;*!*/
-/*!*    !*We zorgen er ook voor dat deze flex-item op haar beurt ook weer een flexbox container is, waarin alle children onder elkaar komen te staan*!*!*/
-/*!*    display: flex;*!*/
-/*!*    flex-direction: row;*!*/
-/*!*    justify-content: flex-end;*!*/
-/*!*    align-items: center;*!*/
-/*!*    height: 100%;*!*/
-/*!*}*!*/
+.inner-nav-container {
+    flex-basis: 1400px;
+    flex-shrink: 1;
+    flex-grow: 0;
+    /*We voegen margin toe aan de linker- en rechterkant, zodat de content nooit helemaal tegen de rand gedrukt kan worden*/
+    margin: 0 20px;
+    /*We zorgen er ook voor dat deze flex-item op haar beurt ook weer een flexbox container is, waarin alle children onder elkaar komen te staan*/
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+}
 
-/*!*.main-navigation-logo-button {*!*/
-/*!*    background-color: transparent;*!*/
-/*!*    border: none;*!*/
-/*!*    max-width: 50px;*!*/
-/*!*    margin-right: auto;*!*/
-/*!*    margin-left: 20px;*!*/
-/*!*    display: flex;*!*/
-/*!*    align-items: center;*!*/
-/*!*    padding: 0;*!*/
-/*!*}*!*/
+.main-navigation-logo-button {
+    background-color: transparent;
+    border: none;
+    max-width: 50px;
+    margin-right: auto;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
 
 
-/*!*.main-navigation-links {*!*/
-/*!*    list-style: none;*!*/
-/*!*    flex-basis: 350px;*!*/
-/*!*    display: flex;*!*/
-/*!*    flex-direction: row;*!*/
-/*!*    justify-content: space-between;*!*/
-/*!*}*!*/
+.main-navigation-links {
+    list-style: none;
+    flex-basis: 350px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 
-/*nav {*/
-/*    background-color: #000102;*/
-/*    color: white;*/
-/*    display: flex;*/
-/*    padding: 0 32px;*/
-/*    align-items: center;*/
-/*    justify-content: space-between;*/
-/*}*/
+nav {
+    background-color: #000102;
+    color: white;
+    display: flex;
+    padding: 0 32px;
+    align-items: center;
+    justify-content: space-between;
+}
 
-/*.main-navigation-links .active-link {*/
-/*    text-decoration: underline;*/
-/*    color: var(--color-primary);*/
-/*    font-weight: 600;*/
-/*}*/
+.main-navigation-links .active-link {
+    text-decoration: underline;
+    color: var(--color-primary);
+    font-weight: 600;
+}
 
-/*.main-navigation-links .default-link {*/
-/*    text-decoration: none;*/
-/*    color: white;*/
-/*    font-weight: 600;*/
-/*}*/
+.main-navigation-links .default-link {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+}
 
-/*.main-navigation-links .active-link:hover,*/
-/*.main-navigation-links .default-link:hover {*/
-/*    color: var(--color-primary);*/
-/*}*/
+.main-navigation-links .active-link:hover,
+.main-navigation-links .default-link:hover {
+    color: var(--color-primary);
+}
 
-/*!*Algemene button styling*!*/
-/*button {*/
-/*    border-radius: 4px;*/
-/*    border: none;*/
-/*    !*color: white;*!*/
-/*    padding: 8px 16px;*/
-/*    background-color: var(--color-primary);*/
-/*    color: black;*/
-/*    font-weight: bold;*/
-/*}*/
+/*/*Algemene button styling*/
+button {
+    border-radius: 4px;
+    border: none;
+    /*color: white;*/
+    padding: 8px 16px;
+    background-color: var(--color-primary);
+    color: black;
+    font-weight: bold;
+}
 
-/*!*Zorgt ervoor dat als twee buttons naast elkaar staan, er altijd ruimte tussen blijft*!*/
-/*button + button {*/
-/*    margin-left: 8px;*/
-/*}*/
+/*Zorgt ervoor dat als twee buttons naast elkaar staan, er altijd ruimte tussen blijft*/
+button + button {
+    margin-left: 8px;
+}
 
-/*button:hover {*/
-/*    cursor: pointer;*/
-/*}*/
+button:hover {
+    cursor: pointer;
+}
 

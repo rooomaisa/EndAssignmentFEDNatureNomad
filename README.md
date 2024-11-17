@@ -29,7 +29,7 @@ keer wél een designer ingehuurd en een normaal bedrijfslogo laten maken. Alle v
 de `assets`-map. Je bent vrij om de styling uit het [voorbeeld](https://coolors.co/38e991-2c2f39-50535c-e8e9ed-ffebc6)
 na te bootsen, of hier je eigen draai aan te geven.
 
-![screenshot.png](src/assets/media/screenshots-blogventure.png)
+![screenshot.png](src/assets/images/screenshots-blogventure.png)
 
 Het project is opgezet met [Vite](https://vitejs.dev/) (React versie 18.2.0).
 
@@ -69,7 +69,7 @@ Uiteraard test je goed of alles werkt, door handmatig de url in de adresbalk te 
 
 ### 1.2 Navigatie
 
-![screenshot-menu-balk.png](src/assets/media/screenshot-menu-balk.png)
+![screenshot-menu-balk.png](src/assets/images/screenshot-menu-balk.png)
 Naast het feit dat er content op de pagina's moet komen te staan - hier komen we in opdracht 2 op terug - zul je ook
 moeten zorgen voor een goed werkende menu-balk met daarin de links naar:
 

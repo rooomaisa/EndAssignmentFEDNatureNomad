@@ -1,8 +1,12 @@
+
+/* Home.css */
+
 .home-page {
     background-color: var(--color-secondary);
     color: var(--color-white);
     min-height: 100vh;
     padding: 16px;
+    align-items: center;
 }
 
 .home-title {
@@ -28,19 +32,22 @@
     font-size: 1rem;
 }
 
+.homepage-btn {
+    margin-top: 32px;
+}
 
+.inner-content-container__home-content{
+    max-width: 600px;
+    text-align: left;
 
+}
 
-
-
-
-
-/*.homepage-btn {*/
-/*    margin-top: 32px;*/
-/*}*/
-
-/*.inner-content-container__home-content{*/
-/*    max-width: 600px;*/
-/*    text-align: left;*/
-
-/*}*/
+/* Title styling */
+.home-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
