@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {Link, NavLink, useNavigate} from "react-router-dom";
-import './Navigation.css'
+import styles from './Navigation.module.css'
 import {AuthContext} from "../../context/AuthContext.jsx";
 import logo from "/forest.svg";
 
@@ -11,48 +11,48 @@ function Navigation() {
 
 
     return (
-        <nav>
+        <nav className={styles.nav}>
             <Link to="/">
-          <span className="logo-container">
-            <img src={logo} alt="logo"/>
-            <h3>
+          <span className={styles['logo-container']}>
+            <img src={logo} alt="logo" className={styles.logo}/>
+            <h3 className={styles.title}>
               NatureNomad
             </h3>
           </span>
             </Link>
 
             {isAuth ? (
-                <div>
+                <div className={styles['auth-links']}>
                     <ul>
                         <li>
                             <NavLink to="/search"
-                                     className={({isActive}) => (isActive ? 'active-link' : 'default-link')}>
+                                     className={({isActive}) => isActive ? styles['active-link'] : styles['default-link']}>
                                 Search
                             </NavLink>
                         </li>
                         <li>
                             <NavLink to="/myfavourites"
-                                     className={({isActive}) => (isActive ? 'active-link' : 'default-link')}>
+                                     className={({isActive}) => isActive ? styles['active-link'] : styles['default-link']}>
                                 My Favourites
                             </NavLink>
                         </li>
                         <li>
                             <NavLink to="/profile"
-                                     className={({isActive}) => (isActive ? 'active-link' : 'default-link')}>
+                                     className={({isActive}) => isActive ? styles['active-link'] : styles['default-link']}>
                                 My profile
                             </NavLink>
                         </li>
                     </ul>
-                    <button type="button" onClick={logout}>
+                    <button type="button" onClick={logout} className={styles['logout-btn']}>
                         Log out
                     </button>
                 </div>
             ) : (
-                <div>
-                    <button type="button" onClick={() => navigate('/sign-in')}>
+                <div className={styles['guest-links']}>
+                    <button type="button" onClick={() => navigate('/sign-in')} className={styles['login-btn']}>
                         Log in
                     </button>
-                    <button type="button" onClick={() => navigate('/sign-up')}>
+                    <button type="button" onClick={() => navigate('/sign-up')} className={styles['signup-btn']}>
                         Registreren
                     </button>
                 </div>

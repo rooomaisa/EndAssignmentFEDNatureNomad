@@ -1,9 +1,46 @@
-.homepage-btn {
-    margin-top: 32px;
+.home-page {
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+    min-height: 100vh;
+    padding: 16px;
 }
 
-.inner-content-container__home-content{
-    max-width: 600px;
-    text-align: left;
-
+.home-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
+
+.home-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: var(--color-white);
+}
+
+.home-btn {
+    display: block;
+    margin: 0 auto;
+    padding: 12px 32px;
+    font-size: 1rem;
+}
+
+
+
+
+
+
+
+
+/*.homepage-btn {*/
+/*    margin-top: 32px;*/
+/*}*/
+
+/*.inner-content-container__home-content{*/
+/*    max-width: 600px;*/
+/*    text-align: left;*/
+
+/*}*/
