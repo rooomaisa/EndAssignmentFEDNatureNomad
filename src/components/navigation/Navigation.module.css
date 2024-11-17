@@ -36,6 +36,13 @@
 .default-link {
     color: var(--color-white);
     text-decoration: none;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.default-link:hover {
+    color: var(--color-white); /* Text color on hover */
+    text-decoration: underline; /* Underline on hover */
+    text-decoration-color: var(--color-primary); /* Color for underline */
 }
 
 .logout-btn,
