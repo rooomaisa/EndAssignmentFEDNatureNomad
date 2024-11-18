@@ -2,8 +2,8 @@
 
 /* Navigation */
 .nav {
-    background-color: var(--color-secondary); /* Default background for non-homepage */
-    position: relative; /* Pushes content down on all pages */
+    background-color: var(--color-secondary);
+    position: relative;
     width: 100%;
     z-index: 1000;
     display: flex;
@@ -13,8 +13,8 @@
 }
 
 .nav-overlay {
-    position: fixed; /* Stays on top of the homepage background */
-    background-color: transparent; /* Transparent to show background image */
+    position: fixed;
+    background-color: transparent;
     top: 0;
     left: 0;
     width: 100%;
@@ -25,7 +25,7 @@
 .logo-container {
     display: flex;
     align-items: center;
-    text-decoration: none; /* Inherited from index.css */
+    text-decoration: none;
 }
 
 .logo {
@@ -35,7 +35,7 @@
 
 .title {
     font-size: 1.5rem;
-    color: var(--color-white); /* White text */
+    color: var(--color-white);
     font-weight: bold;
 }
 
@@ -44,23 +44,23 @@
 .guest-links {
     display: flex;
     align-items: center;
-    gap: 16px; /* Space between links */
+    gap: 16px;
     font-size: 1.25rem;
 }
 
 .active-link {
-    color: var(--color-primary); /* Highlights active link */
+    color: var(--color-primary);
     font-weight: bold;
 }
 
 .default-link {
-    color: var(--color-white); /* White for default links */
-    text-decoration: none; /* No underline */
-    transition: color 0.3s ease, text-decoration 0.3s ease; /* Smooth transitions */
+    color: var(--color-white);
+    text-decoration: none;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
 .default-link:hover {
-    color: var(--color-highlight); /* Highlight color on hover */
+    color: var(--color-highlight);
     text-decoration: underline;
 }
 
@@ -69,7 +69,7 @@
 .login-btn,
 .signup-btn {
     background: var(--color-primary);
-    color: var(--color-tertiary); /* Light beige text */
+    color: var(--color-tertiary);
     padding: 8px 32px;
     border-radius: 4px;
     border: none;
@@ -82,17 +82,17 @@
 .logout-btn:hover,
 .login-btn:hover,
 .signup-btn:hover {
-    background: var(--color-highlight); /* Soft aqua on hover */
-    color: var(--color-primary); /* Deep forest green text */
-    transform: scale(1.05); /* Slight enlargement */
+    background: var(--color-highlight);
+    color: var(--color-primary);
+    transform: scale(1.05);
 }
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
     .nav {
-        flex-direction: column; /* Stack vertically on smaller screens */
+        flex-direction: column;
         align-items: center;
-        gap: 16px; /* Add spacing */
+        gap: 16px;
     }
 
     .auth-links ul,
@@ -102,99 +102,9 @@
     }
 
     .logo-container {
-        margin-bottom: 16px; /* Space below logo */
+        margin-bottom: 16px;
     }
 }
-
-/*.nav {*/
-/*    !*background-color: var(--color-secondary);*!*/
-/*    background-color: var(--color-secondary); !* Default background *!*/
-/*    position: relative; !* Normal positioning for all pages *!*/
-/*    width: 100%;*/
-/*    z-index: 1000;*/
-/*    display: flex;*/
-/*    justify-content: space-between;*/
-/*    align-items: center;*/
-/*    padding: 16px;*/
-/*    border: 2px solid pink;*/
-/*}*/
-
-/*.nav-overlay {*/
-/*    position: fixed; !* Stays on top of the homepage background *!*/
-/*    background-color: transparent; !* Transparent to show background image *!*/
-/*    top: 0;*/
-/*    left: 0;*/
-/*    width: 100%;*/
-/*    z-index: 1000;*/
-/*}*/
-
-/*.logo-container {*/
-/*    display: flex;*/
-/*    align-items: center;*/
-/*}*/
-
-/*.logo {*/
-/*    width: 40px;*/
-/*    margin-right: 8px;*/
-/*}*/
-
-/*.title {*/
-/*    font-size: 1.5rem;*/
-/*    color: var(--color-white);*/
-/*}*/
-
-/*.auth-links ul,*/
-/*.guest-links {*/
-/*    display: flex;*/
-/*    align-items: center;*/
-/*    gap: 16px;*/
-/*    font-size: 1.25rem;*/
-/*    border: 2px solid black;*/
-/*}*/
-
-/*.active-link{*/
-/*    color: var(--color-primary);*/
-/*    font-weight: bold;*/
-/*}*/
-
-/*.default-link {*/
-/*    color: var(--color-white);*/
-/*    text-decoration: none;*/
-/*    transition: color 0.3s ease, text-decoration 0.3s ease;*/
-/*}*/
-
-/*.default-link:hover {*/
-/*    color: var(--color-white); !* Text color on hover *!*/
-/*    text-decoration: underline; !* Underline on hover *!*/
-/*    text-decoration-color: var(--color-primary); !* Color for underline *!*/
-/*}*/
-
-/*.logout-btn,*/
-/*.login-btn,*/
-/*.signup-btn {*/
-/*    background: var(--color-primary);*/
-/*    color: var(--color-secondary);*/
-/*    padding: 8px 32px;*/
-/*    border-radius: 4px;*/
-/*    border: none;*/
-/*    font-weight: 500;*/
-/*    cursor: pointer;*/
-/*    transition: all 300ms ease;*/
-/*    text-decoration: none;*/
-
-/*}*/
-
-/*.logout-btn:hover,*/
-/*.login-btn:hover,*/
-/*.signup-btn:hover {*/
-/*    background: var(--color-primary);*/
-/*    color: var(--color-white);*/
-/*    text-decoration: underline;*/
-/*    text-underline-offset: 4px;*/
-/*    text-decoration-color: black;*/
-/*    transform: scale(1.05);*/
-/*}*/
-
 
 
 

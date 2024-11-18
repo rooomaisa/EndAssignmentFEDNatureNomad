@@ -14,31 +14,25 @@ html {
 
 :root {
     /* Darker Colors */
-    --color-primary: #2a3d3b; /* Deep Forest Green */
-    --color-secondary: #3b7465; /* Teal Green */
-    --color-accent: #7e567c; /* Rich Purple */
+    --color-primary: #2a3d3b;
+    --color-secondary: #3b7465;
+    --color-accent: #7e567c;
 
     /* Mid-tone Colors */
-    --color-highlight: #85b9a8; /* Soft Aqua */
-    --color-mid-orange: #d89d6a; /* Soft Orange */
-    --color-mid-yellow: #f7d792; /* Warm Yellow */
+    --color-highlight: #85b9a8;
+    --color-mid-orange: #d89d6a;
+    --color-mid-yellow: #f7d792;
 
     /* Lighter Colors */
-    --color-tertiary: #f3d6b0; /* Light Beige */
-    --color-light-purple: #e9d5e6; /* Pastel Purple */
-    --color-light-green: #d8eee6; /* Light Mint Green */
+    --color-tertiary: #f3d6b0;
+    --color-light-purple: #e9d5e6;
+    --color-light-green: #d8eee6;
 
     /* Gradients */
     --gradient-primary: linear-gradient(90deg, #2a3d3b 20%, #7e567c 60%);
     --gradient-secondary: linear-gradient(90deg, #d89d6a 20%, #f7d792 60%);
   }
 
-  /*--color-primary: #38E991;*/
-  /*--color-secondary: #2C2F39;*/
-  /*--color-tertiary: #50535C;*/
-  /*--color-white: #FFFFFF;*/
-  /*--color-background: #F9F9F9;*/
-  /*--gradient-primary: linear-gradient(90deg, #38E991 20%, #50535C 60%);*/
 
 
 body {
@@ -54,7 +48,6 @@ body {
 
 h1,h2,h3,h4,h5,h6 {
   font-family: 'Montserrat', sans-serif;
-  /*color: var(--color-primary);*/
   margin-bottom: 0.5rem;
   line-height: 1.3;
 }
