@@ -1,0 +1,129 @@
+/* Profile Page Specific Styles */
+.profile-page {
+    padding: 32px 16px; /* Adjust spacing around the page */
+    background-color: var(--color-tertiary); /* Soft, light background */
+    color: var(--color-primary); /* Text uses primary dark green */
+}
+
+/* Page Title */
+.profile-title {
+    background: var(--gradient-primary); /* Gradient styling for the title */
+    -webkit-background-clip: text; /* Clip text to gradient */
+    -webkit-text-fill-color: transparent; /* Make the gradient visible */
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+/* Profile Details Section */
+.profile-details {
+    margin-bottom: 24px; /* Space between sections */
+    padding: 16px;
+    background-color: var(--color-light-green); /* Subtle background for details section */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+}
+
+.profile-details h2 {
+    margin-bottom: 12px;
+    font-size: 1.75rem;
+    color: var(--color-secondary); /* Teal green for headings */
+    text-align: center;
+}
+
+.profile-details p {
+    margin-bottom: 8px;
+    font-size: 1rem;
+    color: var(--color-primary); /* Dark forest green for details text */
+}
+
+/* Secret Profile Content Section */
+.profile-content {
+    margin-bottom: 24px;
+    padding: 16px;
+    background-color: var(--color-light-purple); /* Light purple for contrast */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+}
+
+.profile-content h2 {
+    margin-bottom: 12px;
+    font-size: 1.75rem;
+    color: var(--color-secondary); /* Consistent with other section headings */
+    text-align: center;
+}
+
+.profile-content p {
+    /*color: var(--color-tertiary); !* Subtle beige for paragraph text *!*/
+    font-size: 1rem;
+}
+
+/* Link to Homepage */
+.profile-page a {
+    font-weight: bold;
+    color: var(--color-accent); /* Rich purple for link text */
+    text-decoration: none;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.profile-page a:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--color-highlight); /* Aqua underline on hover */
+    color: var(--color-highlight); /* Aqua text on hover */
+}
+
+
+/*!* Profile Page Specific Styles *!*/
+/*.profile-page {*/
+/*    padding: 32px 16px;*/
+/*    background-color: var(--color-background);*/
+/*    color: var(--color-secondary);*/
+/*}*/
+
+/*.profile-title {*/
+/*    background: var(--gradient-primary);*/
+/*    -webkit-background-clip: text;*/
+/*    -webkit-text-fill-color: transparent;*/
+/*}*/
+
+/*!* Profile Details Section *!*/
+/*.profile-details {*/
+/*    margin-bottom: 24px;*/
+/*}*/
+
+/*.profile-details h2 {*/
+/*    margin-bottom: 8px;*/
+/*    font-size: 1.5rem;*/
+/*    color: var(--color-primary);*/
+/*    text-align: center;*/
+/*}*/
+
+/*.profile-details p {*/
+/*    margin-bottom: 8px;*/
+/*}*/
+
+/*!* Secret Profile Content Section *!*/
+/*.profile-content {*/
+/*    margin-bottom: 24px;*/
+/*}*/
+
+/*.profile-content h2 {*/
+/*    margin-bottom: 8px;*/
+/*    font-size: 1.5rem;*/
+/*    color: var(--color-primary);*/
+/*}*/
+
+/*.profile-content p {*/
+/*    color: var(--color-tertiary);*/
+/*}*/
+
+/*!* Link to Homepage *!*/
+/*.profile-page a {*/
+/*    font-weight: bold;*/
+/*    color: var(--color-primary);*/
+/*    text-decoration: none;*/
+/*}*/
+
+/*.profile-page a:hover {*/
+/*    text-decoration: underline;*/
+/*}*/

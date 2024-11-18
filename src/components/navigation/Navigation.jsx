@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Link, NavLink, useNavigate} from "react-router-dom";
+import {Link, NavLink, useNavigate, useLocation} from "react-router-dom";
 import styles from './Navigation.module.css'
 import {AuthContext} from "../../context/AuthContext.jsx";
 import logo from "/forest.svg";
@@ -7,11 +7,13 @@ import logo from "/forest.svg";
 function Navigation() {
     const navigate = useNavigate();
     const { isAuth, logout } = useContext(AuthContext);
+    const location = useLocation();
+    const isHomepage = location.pathname === "/";
     console.log("Authenticatie status:", isAuth);
 
 
     return (
-        <nav className={styles.nav}>
+        <nav className={`${styles.nav} ${isHomepage ? styles['nav-overlay'] : ''}`}>
             <Link to="/">
           <span className={styles['logo-container']}>
             <img src={logo} alt="logo" className={styles.logo}/>
@@ -58,16 +60,6 @@ function Navigation() {
                 </div>
             )}
         </nav>
-
-
-
-
-
-
-
-
-
-
 
 
     );
