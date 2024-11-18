@@ -3,11 +3,12 @@ import SearchComponent from "../../components/searchComponent/SearchComponent.js
 
 function Search() {
     return (
-        <div className={'page-container'}>
+        <section className="outer-container">
+            <div className="inner-container">
             <h1>Search for National Parks</h1>
-            <SearchComponent>
-            </SearchComponent>
+            <SearchComponent/>
         </div>
+        </section>
     );
 }
 

@@ -252,8 +252,6 @@ function handleActivitySelection(e) {
 
             const finalTop10Parks = [...selectedParksData, ...filteredTopParks].slice(0, 10);
 
-
-
             setTopParks(finalTop10Parks);
             setIsModalOpen(true);
 
@@ -263,9 +261,6 @@ function handleActivitySelection(e) {
             setLoading(false);
         }
     }
-
-
-
 
 
 
@@ -288,24 +283,28 @@ function handleActivitySelection(e) {
 
 
     return (
-        <div>
-            <h1>Select Parks and Activities</h1>
+        <div className="search-component">
+            {/* Search Bar */}
             <input
                 type="text"
                 placeholder="Search for a park"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
+                className="search-bar"
             />
-            {error && <p className="error">{error}</p>}
 
-            <div className="suggestions">
+            {/* Display Error if Exists */}
+            {error && <p className="error-message">{error}</p>}
+
+            {/* Suggestions Grid */}
+            <div className="suggestions-grid">
                 {suggestedParks
                     .filter((park) => park.fullName.toLowerCase().includes(searchTerm.toLowerCase()))
                     .slice(0, 10)
                     .map((park) => (
                         <div
                             key={park.id}
-                            className="suggestion"
+                            className="suggestion-tile"
                             onClick={() => handleParkSelection(park)}
                         >
                             {park.fullName}
@@ -313,23 +312,29 @@ function handleActivitySelection(e) {
                     ))}
             </div>
 
-
-
-
+            {/* Selected Parks */}
             <div className="selected-parks">
-                <h2>Selected Parks</h2>
-                {selectedParks.map((park) => (
-                    <div key={park.id} className="selected-park">
-                        {park.fullName}
-                        <button onClick={() => removeSelectedPark(park.id)}>Remove</button>
-                    </div>
-                ))}
+                <h2 className="section-title">Selected Parks</h2>
+                <div className="selected-parks-grid">
+                    {selectedParks.map((park) => (
+                        <div key={park.id} className="selected-park-tile">
+                            <h3>{park.fullName}</h3>
+                            <button
+                                onClick={() => removeSelectedPark(park.id)}
+                                className="btn btn--remove"
+                            >
+                                Remove
+                            </button>
+                        </div>
+                    ))}
+                </div>
             </div>
 
-            <div>
-                <h2>Activities</h2>
+            {/* Activities Section */}
+            <h2 className="section-title">Activities</h2>
+            <div className="activities-grid">
                 {availableActivities.map((activity) => (
-                    <label key={activity.id}>
+                    <label key={activity.id} className="activity-checkbox">
                         <input
                             type="checkbox"
                             value={activity.name}
@@ -340,49 +345,96 @@ function handleActivitySelection(e) {
                     </label>
                 ))}
             </div>
-            <button onClick={handleSearch} disabled={loading}>
+
+            {/* Search Button */}
+            <button
+                onClick={handleSearch}
+                disabled={loading}
+                className="btn btn--primary"
+            >
                 Search
             </button>
 
-            <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-                <h2>Top 10 Parks</h2>
-                {topParks.length > 0 ? (
-                    topParks.map((park) => {
-                        const isSelectedPark = selectedParks.some((selected) => selected.parkCode === park.parkCode);
+            {/* Modal */}
+            {isModalOpen && (
+                <div className="modal-overlay">
+                    <div className="modal">
+                        <button
+                            onClick={handleCloseModal}
+                            className="modal-close"
+                        >
+                            &times;
+                        </button>
+                        <h2 className="modal-title">Top 10 Parks</h2>
+                        <div className="modal-content-grid">
+                            {topParks.length > 0 ? (
+                                topParks.map((park) => {
+                                    const isSelectedPark = selectedParks.some(
+                                        (selected) => selected.parkCode === park.parkCode
+                                    );
 
-                        return (
-                            <div key={park.id}>
-                                {isSelectedPark ? (
-                                    <span style={{color: 'green', fontWeight: 'bold'}}>Your Selected Park</span>
-                                ) : (
-                                    <span style={{color: 'blue', fontWeight: 'bold'}}>Our Recommendation</span>
-                                )}
-                                <h3>{park.fullName}</h3>
-                                {park.imageUrl && (
-                                    <img src={park.imageUrl} alt={`${park.fullName} image`} width="100" height="75" />
-                                )}
-                                <p>{park.description}</p>
-                                <p>{park.hasSelectedActivities ? '✅ Includes selected activities' : '⚠️ Does not include all selected activities'}</p>
+                                    return (
+                                        <div key={park.id} className="modal-tile">
+                                        <span
+                                            className={
+                                                isSelectedPark
+                                                    ? "badge badge--selected"
+                                                    : "badge badge--recommended"
+                                            }
+                                        >
+                                            {isSelectedPark
+                                                ? "Your Selected Park"
+                                                : "Our Recommendation"}
+                                        </span>
+                                            <h3 className="modal-tile-title">{park.fullName}</h3>
+                                            {park.imageUrl && (
+                                                <img
+                                                    src={park.imageUrl}
+                                                    alt={`${park.fullName} image`}
+                                                    className="modal-tile-image"
+                                                />
+                                            )}
+                                            <p className="modal-tile-description">{park.description}</p>
+                                            <p className="modal-tile-activities">
+                                                {park.hasSelectedActivities
+                                                    ? "✅ Includes selected activities"
+                                                    : "⚠️ Does not include all selected activities"}
+                                            </p>
 
-                                {park.missingActivities.length > 0 && (
-                                    <p>
-                                        ⚠️ Missing activities: {park.missingActivities.join(', ')}
-                                    </p>
-                                )}
+                                            {park.missingActivities.length > 0 && (
+                                                <p className="modal-tile-missing-activities">
+                                                    ⚠️ Missing activities:{" "}
+                                                    {park.missingActivities.join(", ")}
+                                                </p>
+                                            )}
 
-                                <button onClick={() => savePark(park)}>Save Park</button>
-                            </div>
-                        );
-                    })
-                ) : (
-                    <p>No parks match the selected activities.</p>
-                )}
-                <button onClick={handleSearchAgain}>Search Again</button>
-            </Modal>
-
-
+                                            <button
+                                                onClick={() => savePark(park)}
+                                                className="btn btn--save"
+                                            >
+                                                Save Park
+                                            </button>
+                                        </div>
+                                    );
+                                })
+                            ) : (
+                                <p className="no-results-message">
+                                    No parks match the selected activities.
+                                </p>
+                            )}
+                        </div>
+                        <button
+                            onClick={handleSearchAgain}
+                            className="btn btn--secondary"
+                        >
+                            Search Again
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
-    );
-    }
 
- export default SearchComponent;
+    );
+}
+
+export default SearchComponent;

@@ -1,0 +1,232 @@
+
+/* General Layout */
+.search-component {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Search Bar */
+.search-component input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.25rem;
+    border: 2px solid var(--color-highlight);
+    border-radius: 8px;
+    outline: none;
+    transition: box-shadow 0.3s ease;
+}
+
+.search-component input[type="text"]:focus {
+    box-shadow: 0 0 8px var(--color-highlight);
+}
+
+/* Suggestions */
+.suggestions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+}
+
+.suggestion {
+    padding: 12px;
+    border: 2px solid var(--color-secondary);
+    border-radius: 8px;
+    background-color: var(--color-light-purple);
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.suggestion:hover {
+    transform: scale(1.05);
+    background-color: var(--color-highlight);
+    color: var(--color-primary);
+}
+
+/* Selected Parks */
+.selected-parks {
+    margin-top: 24px;
+}
+
+.selected-park {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border: 2px solid var(--color-accent);
+    border-radius: 8px;
+    background-color: var(--color-light-purple);
+    transition: transform 0.2s ease;
+}
+
+.selected-park:hover {
+    transform: scale(1.02);
+}
+
+.selected-park button {
+    background: none;
+    color: var(--color-accent);
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.selected-park button:hover {
+    color: var(--color-primary);
+}
+
+/* Activities Section */
+.activities {
+    margin-top: 24px;
+}
+
+.activities label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.activities input[type="checkbox"] {
+    transform: scale(1.2);
+}
+
+.activities-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjusts to screen size */
+    gap: 16px; /* Space between items */
+    margin-top: 16px; /* Adds space above the grid */
+}
+
+.activities-container label {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Space between the checkbox and text */
+    background-color: var(--color-light-purple); /* Playful background color */
+    padding: 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.activities-container label:hover {
+    background-color: var(--color-mid-orange); /* Change color on hover */
+    transform: scale(1.05); /* Slight hover lift */
+}
+
+.activities-container input {
+    accent-color: var(--color-primary); /* Style the checkbox */
+}
+
+
+/* Modal Styling */
+.modal {
+    background-color: var(--color-tertiary); /* Keep existing background */
+    color: var(--color-primary);
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    max-width: 90%;
+    width: 600px; /* Increased width for a more balanced appearance */
+    margin: 0 auto;
+    position: relative; /* Ensures proper stacking */
+    max-height: 80vh; /* Limit height to avoid overflowing */
+    overflow-y: auto; /* Add scrolling if content overflows */
+}
+
+/* Blur effect for the overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent dark background */
+    backdrop-filter: blur(8px); /* Apply blur effect */
+    z-index: 1000; /* Place above other content */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal header styling */
+.modal h2 {
+    font-size: 2rem;
+    margin-bottom: 16px;
+    text-align: center;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Grid layout for modal content */
+.modal .modal-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Two columns if space allows */
+    gap: 16px;
+}
+
+/* Tile styling */
+.modal .modal-content div {
+    border: 2px solid var(--color-secondary);
+    padding: 16px;
+    border-radius: 8px;
+    background-color: var(--color-light-green);
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.modal .modal-content div:hover {
+    transform: scale(1.05);
+    background-color: var(--color-highlight);
+}
+
+/* Button styling inside tiles */
+.modal button {
+    margin-top: 16px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--color-tertiary);
+    background-color: var(--color-primary);
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.modal button:hover {
+    background-color: var(--color-highlight);
+    transform: scale(1.05);
+}
+
+/* Close button styling */
+.modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background-color: var(--color-secondary);
+    color: var(--color-tertiary);
+    padding: 8px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5rem;
+    line-height: 1;
+    transition: background-color 0.3s ease;
+}
+
+.modal-close:hover {
+    background-color: var(--color-primary);
+}
+
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .suggestions,
+    .modal .modal-content {
+        grid-template-columns: 1fr;
+    }
+}
