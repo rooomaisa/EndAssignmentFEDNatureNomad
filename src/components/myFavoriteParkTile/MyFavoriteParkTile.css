@@ -1,28 +1,96 @@
 /* park-tile.css */
 .park-tile {
-    background-color: #f8f9fa; /* Light background color */
-    border: 1px solid #e0e0e0; /* Subtle border */
-    border-radius: 8px; /* Rounded corners */
-    padding: 16px; /* Inner padding for spacing */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
-    margin: 12px; /* Spacing between tiles */
-    max-width: 300px; /* Limit width */
-    transition: transform 0.2s ease-in-out; /* Smooth hover effect */
-}
-
-.park-tile h3 {
-    font-size: 1.25em; /* Slightly larger for title */
-    color: #333; /* Darker color for readability */
-    margin-bottom: 8px;
-}
-
-.park-tile p {
-    color: #666; /* Grey color for secondary text */
-    font-size: 1em;
-    margin: 0;
+    background-color: var(--color-tertiary);
+    border: 1px solid var(--color-secondary);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .park-tile:hover {
-    transform: translateY(-4px); /* Slight lift on hover */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+    transform: translateY(-8px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
+
+.park-image {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+}
+
+.park-info {
+    padding: 16px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.park-title {
+    font-size: 1.25rem;
+    margin-bottom: 8px;
+    color: var(--color-primary);
+}
+
+.park-description {
+    margin-bottom: 8px;
+    color: var(--color-secondary);
+    font-size: 0.875rem;
+}
+
+.park-link {
+    font-weight: bold;
+    color: var(--color-primary);
+    text-decoration: none;
+    margin-top: 8px;
+    display: inline-block;
+}
+
+.park-link:hover {
+    text-decoration: underline;
+}
+
+.fees {
+    margin-top: 16px;
+}
+
+.fees-container {
+    max-height: 100px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-accent) var(--color-tertiary);
+}
+
+.fees-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.fees-container::-webkit-scrollbar-track {
+    background: var(--color-tertiary);
+}
+
+.fees-container::-webkit-scrollbar-thumb {
+    background-color: var(--color-accent);
+    border-radius: 8px;
+}
+
+.remove-btn {
+    background-color: var(--color-accent);
+    color: var(--color-light-purple);
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    align-self: flex-end;
+    display: none;
+}
+
+.park-tile:hover .remove-btn {
+    display: block;
+}
+
+
+
