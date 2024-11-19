@@ -1,11 +1,5 @@
 
-.page-container {
-    padding: 32px 16px;
-    background-color: var(--color-light-green);
-    min-height: 100vh;
-}
-
-.page-container h1 {
+.inner-container h1 {
     text-align: center;
     font-size: 2.5rem;
     color: var(--color-primary);

@@ -240,37 +240,6 @@
 }
 
 
-/* Close button styling */
-.modal-close {
-    position: absolute;
-    top: 16px; /* Position it at the top */
-    right: 16px; /* Align to the right */
-    background-color: var(--color-secondary);
-    color: var(--color-tertiary);
-    padding: 8px;
-    border: none;
-    border-radius: 50%; /* Circular button */
-    cursor: pointer;
-    font-size: 1.5rem; /* Large enough to click */
-    line-height: 1;
-    transition: background-color 0.3s ease;
-    z-index: 1100; /* Ensure it stays above the modal */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    visibility: visible;
-    opacity: 1;
-}
-
-.modal-close:hover {
-    background-color: var(--color-primary);
-    color: var(--color-tertiary);
-}
-
-.modal-close:focus {
-    outline: none; /* Remove focus outline for aesthetics */
-}
-
 /* Responsiveness */
 @media (max-width: 768px) {
     .modal .modal-content {

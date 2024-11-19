@@ -1,5 +1,6 @@
 import React from 'react';
 import SearchComponent from "../../components/searchComponent/SearchComponent.jsx";
+import "./SearchPage.css"
 
 function Search() {
     return (

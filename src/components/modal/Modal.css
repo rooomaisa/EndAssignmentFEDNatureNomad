@@ -1,15 +1,15 @@
 
-
 .modal-container {
-    width: 80%;      /* Increase the width */
-    max-width: 800px; /* Limit the width on large screens */
-    height: 800px;    /* Reduce the height */
+    width: 80%; /* Modal width */
+    max-width: 800px; /* Limit width on large screens */
+    height: auto; /* Adjust height dynamically based on content */
     max-height: 80vh; /* Ensure it doesn’t get too tall */
     overflow-y: auto; /* Add scrolling if content exceeds height */
     padding: 20px;
     border-radius: 10px;
-    /*background-color: white;*/
+    background-color: var(--color-tertiary); /* Consistent with theme */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    position: relative; /* Ensure close button aligns properly */
 }
 
 .modal-overlay {
@@ -18,20 +18,37 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 999;
 }
 
-
 .modal-close {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
+    top: 12px; /* Adjust placement */
+    right: 12px; /* Adjust placement */
+    background: var(--color-secondary); /* Themed button color */
+    color: var(--color-tertiary); /* Text color */
     border: none;
-    font-size: 18px;
+    font-size: 1.5rem; /* Slightly larger for visibility */
     cursor: pointer;
+    border-radius: 50%; /* Circular button */
+    width: 32px; /* Increase size for better clickability */
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    z-index: 1000; /* Ensure it stays on top */
+}
+
+.modal-close:hover {
+    background: var(--color-primary);
+    color: var(--color-tertiary);
+}
+
+.modal-close:focus {
+    outline: none; /* Remove focus outline */
 }
