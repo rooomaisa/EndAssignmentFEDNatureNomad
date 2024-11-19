@@ -1,5 +1,5 @@
 
-/* General Layout */
+/*!* General Layout *! volgens mij laatste css met grid */
 .search-component {
     display: flex;
     flex-direction: column;
@@ -123,19 +123,31 @@
 
 
 /* Modal Styling */
+
 .modal {
-    background-color: var(--color-tertiary); /* Keep existing background */
+    background-color: var(--color-tertiary);
     color: var(--color-primary);
     padding: 24px;
     border-radius: 16px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    max-width: 90%;
-    width: 600px; /* Increased width for a more balanced appearance */
+    max-width: 60vw; /* Adjusted width */
+    width: 100%;
     margin: 0 auto;
-    position: relative; /* Ensures proper stacking */
+    position: relative;
     max-height: 80vh; /* Limit height to avoid overflowing */
-    overflow-y: auto; /* Add scrolling if content overflows */
+    overflow-y: auto;
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth open/close transition */
 }
+
+.modal h2 {
+    font-size: 2rem;
+    margin-bottom: 16px;
+    text-align: center; /* Center the text */
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 
 /* Blur effect for the overlay */
 .modal-overlay {
@@ -149,84 +161,126 @@
     z-index: 1000; /* Place above other content */
     display: flex;
     justify-content: center;
-    align-items: center;
-}
+    /*align-items: center;*/
+    align-items: flex-start;
+    transition: opacity 0.3s ease;
 
-/* Modal header styling */
-.modal h2 {
-    font-size: 2rem;
-    margin-bottom: 16px;
-    text-align: center;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    padding-top: 80px;
 }
 
 /* Grid layout for modal content */
 .modal .modal-content {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Two columns if space allows */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Two columns if space allows */
     gap: 16px;
+    justify-items: center; /* Center-aligns the tiles */
 }
 
-/* Tile styling */
-.modal .modal-content div {
+/* Hover Effects for Tiles */
+.modal .modal-content .modal-tile {
     border: 2px solid var(--color-secondary);
     padding: 16px;
     border-radius: 8px;
     background-color: var(--color-light-green);
     transition: transform 0.2s ease, background-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
-.modal .modal-content div:hover {
-    transform: scale(1.05);
-    background-color: var(--color-highlight);
+.modal .modal-content .modal-tile:hover {
+    transform: scale(1.05); /* Keep hover lift effect */
+    background-color: var(--color-highlight); /* Slightly change the background */
 }
 
-/* Button styling inside tiles */
-.modal button {
-    margin-top: 16px;
-    padding: 12px 24px;
+/* Image Styling */
+.modal .modal-content .modal-tile img {
+    width: 100%; /* Span the full width of the tile */
+    height: auto;
+    border-radius: 8px; /* Slight rounding for a polished look */
+    object-fit: cover; /* Ensures the image scales properly */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+/* Badge Styling */
+.badge {
+    display: inline-block;
     font-size: 1rem;
     font-weight: bold;
     color: var(--color-tertiary);
     background-color: var(--color-primary);
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    padding: 6px 12px;
+    border-radius: 25px; /* Pill shape */
+    text-align: center;
+    margin-bottom: 8px;
 }
 
-.modal button:hover {
+.badge--selected {
     background-color: var(--color-highlight);
-    transform: scale(1.05);
 }
+
+.badge--recommended {
+    background-color: var(--color-accent);
+}
+
+/* Button Alignment */
+.modal .modal-content .modal-tile .btn {
+    align-self: flex-end; /* Align button to the right */
+    margin-top: 12px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: center; /* Horizontally center the button */
+    margin-top: 16px; /* Add spacing above the footer */
+}
+
+.modal-footer .btn {
+    width: auto; /* Ensure the button size is not stretched */
+}
+
 
 /* Close button styling */
 .modal-close {
     position: absolute;
-    top: 16px;
-    right: 16px;
+    top: 16px; /* Position it at the top */
+    right: 16px; /* Align to the right */
     background-color: var(--color-secondary);
     color: var(--color-tertiary);
     padding: 8px;
     border: none;
-    border-radius: 50%;
+    border-radius: 50%; /* Circular button */
     cursor: pointer;
-    font-size: 1.5rem;
+    font-size: 1.5rem; /* Large enough to click */
     line-height: 1;
     transition: background-color 0.3s ease;
+    z-index: 1100; /* Ensure it stays above the modal */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: visible;
+    opacity: 1;
 }
 
 .modal-close:hover {
     background-color: var(--color-primary);
+    color: var(--color-tertiary);
 }
 
+.modal-close:focus {
+    outline: none; /* Remove focus outline for aesthetics */
+}
 
 /* Responsiveness */
 @media (max-width: 768px) {
-    .suggestions,
     .modal .modal-content {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Single column layout on smaller screens */
     }
 }
+
+
+
+
+
+
+

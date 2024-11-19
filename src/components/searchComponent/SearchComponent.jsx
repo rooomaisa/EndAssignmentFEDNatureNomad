@@ -296,15 +296,17 @@ function handleActivitySelection(e) {
             {/* Display Error if Exists */}
             {error && <p className="error-message">{error}</p>}
 
-            {/* Suggestions Grid */}
-            <div className="suggestions-grid">
+            {/* Suggestions */}
+            <div className="suggestions">
                 {suggestedParks
-                    .filter((park) => park.fullName.toLowerCase().includes(searchTerm.toLowerCase()))
+                    .filter((park) =>
+                        park.fullName.toLowerCase().includes(searchTerm.toLowerCase())
+                    )
                     .slice(0, 10)
                     .map((park) => (
                         <div
                             key={park.id}
-                            className="suggestion-tile"
+                            className="suggestion"
                             onClick={() => handleParkSelection(park)}
                         >
                             {park.fullName}
@@ -317,7 +319,7 @@ function handleActivitySelection(e) {
                 <h2 className="section-title">Selected Parks</h2>
                 <div className="selected-parks-grid">
                     {selectedParks.map((park) => (
-                        <div key={park.id} className="selected-park-tile">
+                        <div key={park.id} className="selected-park">
                             <h3>{park.fullName}</h3>
                             <button
                                 onClick={() => removeSelectedPark(park.id)}
@@ -332,7 +334,7 @@ function handleActivitySelection(e) {
 
             {/* Activities Section */}
             <h2 className="section-title">Activities</h2>
-            <div className="activities-grid">
+            <div className="activities-container">
                 {availableActivities.map((activity) => (
                     <label key={activity.id} className="activity-checkbox">
                         <input
@@ -365,8 +367,8 @@ function handleActivitySelection(e) {
                         >
                             &times;
                         </button>
-                        <h2 className="modal-title">Top 10 Parks</h2>
-                        <div className="modal-content-grid">
+                        <h2 className="modal-title">"Wilderness Picks for You"</h2>
+                        <div className="modal-content">
                             {topParks.length > 0 ? (
                                 topParks.map((park) => {
                                     const isSelectedPark = selectedParks.some(
@@ -375,25 +377,23 @@ function handleActivitySelection(e) {
 
                                     return (
                                         <div key={park.id} className="modal-tile">
-                                        <span
-                                            className={
-                                                isSelectedPark
-                                                    ? "badge badge--selected"
-                                                    : "badge badge--recommended"
-                                            }
-                                        >
-                                            {isSelectedPark
-                                                ? "Your Selected Park"
-                                                : "Our Recommendation"}
-                                        </span>
+                            <span
+                                className={
+                                    isSelectedPark
+                                        ? "badge badge--selected"
+                                        : "badge badge--recommended"
+                                }
+                            >
+                                {isSelectedPark
+                                    ? "Your Selected Park"
+                                    : "Our Recommendation"}
+                            </span>
+                                            <img
+                                                src={park.imageUrl}
+                                                alt={`${park.fullName} image`}
+                                                className="modal-tile-image"
+                                            />
                                             <h3 className="modal-tile-title">{park.fullName}</h3>
-                                            {park.imageUrl && (
-                                                <img
-                                                    src={park.imageUrl}
-                                                    alt={`${park.fullName} image`}
-                                                    className="modal-tile-image"
-                                                />
-                                            )}
                                             <p className="modal-tile-description">{park.description}</p>
                                             <p className="modal-tile-activities">
                                                 {park.hasSelectedActivities
@@ -423,16 +423,20 @@ function handleActivitySelection(e) {
                                 </p>
                             )}
                         </div>
+                        <div className="modal-footer">
                         <button
                             onClick={handleSearchAgain}
                             className="btn btn--secondary"
                         >
                             Search Again
                         </button>
+                        </div>
                     </div>
                 </div>
+
             )}
         </div>
+
 
     );
 }
