@@ -29,17 +29,22 @@
     color: var(--color-secondary);
 }
 
-@keyframes fadeInOut {
-    0% {
+@keyframes slide-in {
+    from {
+        transform: translateX(-50%) translateY(-20px);
         opacity: 0;
-        transform: translate(-50%, -60%);
     }
-    10%, 90% {
+    to {
+        transform: translateX(-50%) translateY(0);
         opacity: 1;
-        transform: translate(-50%, -50%);
     }
-    100% {
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+    to {
         opacity: 0;
-        transform: translate(-50%, -40%);
     }
 }

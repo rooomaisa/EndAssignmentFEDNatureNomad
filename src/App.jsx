@@ -12,17 +12,19 @@ import NotFound from "./pages/notFoundPage/NotFound.jsx";
 import ProfilePage from "./pages/ProfilePage/ProfilePage.jsx";
 import {useContext} from "react";
 import {AuthContext} from "./context/AuthContext.jsx";
-
-
+import { useNotification} from "./context/NotificationContext.jsx";
+import Notification from "./components/notifications/Notification.jsx";
 
 
 function App() {
 
     const {isAuth} = useContext(AuthContext);
+    const { notification } = useNotification();
 
     return (
         <>
             <Navigation/>
+            {notification && <Notification message={notification.message} type={notification.type} />}
             <main>
                 <Routes>
                     <Route path="/" element={<Home/>} />
@@ -37,8 +39,6 @@ function App() {
                 </Routes>
             </main>
             <Footer/>
-
-
         </>
     )
 }

@@ -16,6 +16,7 @@ function SearchComponent() {
     const [topParks, setTopParks] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const {savePark} = useContext(SavedParksContext);
+    const [notification, setNotification] = useState(false);
 
 
 

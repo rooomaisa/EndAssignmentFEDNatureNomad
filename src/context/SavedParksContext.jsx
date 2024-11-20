@@ -1,6 +1,8 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import axios from "axios";
 import {AuthContext} from "./AuthContext.jsx";
+import { useNotification } from "./NotificationContext";
+
 
 export const SavedParksContext = createContext({});
 
@@ -12,6 +14,9 @@ function SavedParksProvider({ children }) {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false)
     const [notification, setNotification] = useState('');
+    const { triggerNotification } = useNotification();
+
+
 
 
     async function savePark(newPark) {
@@ -19,8 +24,7 @@ function SavedParksProvider({ children }) {
         const parkAlreadySaved = savedParks.some((park) => park.parkCode === newPark.parkCode);
         if (parkAlreadySaved) {
             console.log("This park is already saved");
-            setNotification('This park is already saved in your favorites');
-            setTimeout(() => setNotification(''), 3000);
+            triggerNotification("This park is already saved in your favorites", "warning");
             return;
         }
 
@@ -54,10 +58,12 @@ function SavedParksProvider({ children }) {
 
             setSavedParks(response.data.info)
             console.log('Park saved successfully:', response.data);
+            triggerNotification("Park saved successfully!", "success");
 
         } catch (e) {
             console.error(e);
             setError(`Something went wrong: ` + e.message);
+            triggerNotification(`Something went wrong: ${e.message}`, "error");
         } finally {
             setLoading(false);
         }
