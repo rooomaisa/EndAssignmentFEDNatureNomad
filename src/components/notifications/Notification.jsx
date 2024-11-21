@@ -1,16 +1,18 @@
 import React, { useEffect } from 'react';
-import { useNotification } from "../../context/NotificationContext.jsx";
+// import { useNotification } from "../../context/NotificationContext.jsx";
 import './Notification.css';
+import notification from "./Notification.jsx";
 
-function Notification() {
+function Notification({message, type}) {
+    console.log("Notification Component Props - Message:", message, "Type:", type);
 
-const { notification } = useNotification();
 
-if (!notification) return null;
+if (!message) return null;
+    console.log('Notification Rendered:', message,type ); // Debugging
 
     return (
-        <div className={`notification notification--${notification.type}`}>
-            {notification.message}
+        <div className={`notification notification--${type}`}>
+            {message}
         </div>
     );
 }

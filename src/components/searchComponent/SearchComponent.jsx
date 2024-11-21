@@ -4,6 +4,7 @@ import {SavedParksContext} from "../../context/SavedParksContext.jsx";
 import './SearchComponent.css'
 import Modal from '../modal/Modal.jsx';
 import debounce from 'lodash/debounce';
+import { useNotification } from "../../context/NotificationContext.jsx";
 
 function SearchComponent() {
     const [loading, setLoading] = useState(false)
@@ -17,6 +18,8 @@ function SearchComponent() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const {savePark} = useContext(SavedParksContext);
     const [notification, setNotification] = useState(false);
+    const { triggerNotification } = useNotification();
+
 
 
 
@@ -166,6 +169,7 @@ function handleActivitySelection(e) {
 
             if (selectedActivities.length === 0) {
                 setError('Please select at least one activity.');
+                triggerNotification("Please select at least one activity", "warning");
                 return;
             }
 
@@ -258,6 +262,7 @@ function handleActivitySelection(e) {
 
         } catch (e) {
             setError(`Something went wrong: ${e.message}`);
+            triggerNotification(`Something went wrong: ${e.message}`, 'error');
         } finally {
             setLoading(false);
         }

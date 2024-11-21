@@ -7,11 +7,13 @@ export const NotificationProvider = ({ children }) => {
 
     // Function to trigger a notification
     const triggerNotification = (message, type = "success") => {
+        console.log("Triggering notification:", message, type);
         setNotification({ message, type });
 
         // Clear the notification after 3 seconds
         setTimeout(() => {
-            setNotification(null);
+            console.log("Clearing notification");
+            setNotification({message: "", type: "" });
         }, 3000);
     };
 
@@ -23,4 +25,7 @@ export const NotificationProvider = ({ children }) => {
 };
 
 // Custom hook to use the NotificationContext
-export const useNotification = () => useContext(NotificationContext);
+// export const useNotification = () => useContext(NotificationContext);
+export function useNotification() {
+    return useContext(NotificationContext);
+}

@@ -9,16 +9,18 @@ import {NotificationProvider} from "./context/NotificationContext.jsx";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
+        <NotificationProvider>
 
      <Router>
       <AuthContextProvider>
-          <NotificationProvider>
+
              <SavedParksProvider>
         <App/>
              </SavedParksProvider>
-          </NotificationProvider>
+
       </AuthContextProvider>
      </Router>
+        </NotificationProvider>
 
     </React.StrictMode>,
 )

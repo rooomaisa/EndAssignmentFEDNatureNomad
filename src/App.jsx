@@ -10,9 +10,9 @@ import ParkDetail from "./pages/parkDetailPage/ParkDetailPage.jsx";
 import MyFavouritesPage from "./pages/myFavouritesPage/MyFavouritesPage.jsx";
 import NotFound from "./pages/notFoundPage/NotFound.jsx";
 import ProfilePage from "./pages/ProfilePage/ProfilePage.jsx";
-import {useContext} from "react";
-import {AuthContext} from "./context/AuthContext.jsx";
-import { useNotification} from "./context/NotificationContext.jsx";
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext.jsx";
+import { useNotification } from "./context/NotificationContext.jsx";
 import Notification from "./components/notifications/Notification.jsx";
 
 
@@ -24,7 +24,6 @@ function App() {
     return (
         <>
             <Navigation/>
-            {notification && <Notification message={notification.message} type={notification.type} />}
             <main>
                 <Routes>
                     <Route path="/" element={<Home/>} />
@@ -38,6 +37,7 @@ function App() {
                     <Route path="*" element={<NotFound/>}/>
                 </Routes>
             </main>
+            {notification && <Notification message={notification.message} type={notification.type} />}
             <Footer/>
         </>
     )
