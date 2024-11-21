@@ -37,9 +37,11 @@ function SearchComponent() {
             } catch (e) {
                 if (axios.isCancel(e)) {
                     console.error(`request is canceled`)
+                    triggerNotification('Request was canceled.', 'warning');
                 } else {
                     console.error(e);
                     setError(`Something went wrong: ` + e.message + true);
+                    triggerNotification(`Something went wrong: ${e.message}`, 'warning');
                 }
             } finally {
                 setLoading(false);
@@ -75,6 +77,7 @@ function SearchComponent() {
             } catch (e) {
                 if (!axios.isCancel(e)) {
                     setError(`Something went wrong: ` + e.message);
+                    triggerNotification('Request was canceled.', 'warning');
                 }
             }
         }, 300);
@@ -168,7 +171,6 @@ function handleActivitySelection(e) {
 
 
             if (selectedActivities.length === 0) {
-                setError('Please select at least one activity.');
                 triggerNotification("Please select at least one activity", "warning");
                 return;
             }
@@ -262,7 +264,7 @@ function handleActivitySelection(e) {
 
         } catch (e) {
             setError(`Something went wrong: ${e.message}`);
-            triggerNotification(`Something went wrong: ${e.message}`, 'error');
+            triggerNotification(`Something went wrong: ${e.message}`, 'warning');
         } finally {
             setLoading(false);
         }

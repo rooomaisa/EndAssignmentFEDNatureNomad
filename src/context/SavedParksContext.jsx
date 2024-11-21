@@ -17,9 +17,26 @@ function SavedParksProvider({ children }) {
     const { triggerNotification } = useNotification();
 
 
+    useEffect(() => {
+        if (user) {
+            fetchSavedParks(); // Fetch saved parks when the user logs in
+        }
+    }, [user]);
+
 
 
     async function savePark(newPark) {
+
+        if (!newPark || !newPark.parkCode) {
+            triggerNotification("Invalid park data provided.", "error");
+            return;
+        }
+
+        // Ensure savedParks is loaded
+        if (!savedParks || savedParks.length === 0) {
+            console.log("Syncing saved parks with backend...");
+            await fetchSavedParks();
+        }
 
         const parkAlreadySaved = savedParks.some((park) => park.parkCode === newPark.parkCode);
         if (parkAlreadySaved) {
@@ -63,7 +80,7 @@ function SavedParksProvider({ children }) {
         } catch (e) {
             console.error(e);
             setError(`Something went wrong: ` + e.message);
-            triggerNotification(`Something went wrong: ${e.message}`, "error");
+            triggerNotification(`Something went wrong: ${e.message}`, "warning");
         } finally {
             setLoading(false);
         }
@@ -87,7 +104,7 @@ function SavedParksProvider({ children }) {
 
             console.log(response.data);
 
-            const savedParkCodes = (response.data);
+            const savedParkCodes = response.data || [];
             console.log(savedParkCodes)
             setSavedParks(savedParkCodes);
 
