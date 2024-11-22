@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import {AuthContext} from "../../context/AuthContext.jsx";
 import axios from "axios";
 import './Sign-InPage.css';
+import Button from "../../components/button/Button.jsx";
 
 function SignIn() {
     const {login} = useContext(AuthContext);
@@ -78,9 +79,8 @@ function SignIn() {
                         />
                     </label>
 
-                    <button type="submit" className="btn signin-button">
-                        login
-                    </button>
+                    <Button text="Login" type="submit" className="btn signin-button" />
+
                 </form>
 
                 <p className="signin-register-redirect">

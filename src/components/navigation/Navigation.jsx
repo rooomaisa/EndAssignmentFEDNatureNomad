@@ -3,6 +3,7 @@ import {Link, NavLink, useNavigate, useLocation} from "react-router-dom";
 import styles from './Navigation.module.css'
 import {AuthContext} from "../../context/AuthContext.jsx";
 import logo from "/forest.svg";
+import Button from "../button/Button.jsx";
 
 function Navigation() {
     const navigate = useNavigate();
@@ -45,18 +46,18 @@ function Navigation() {
                             </NavLink>
                         </li>
                     </ul>
-                    <button type="button" onClick={logout} className={styles['logout-btn']}>
-                        Log out
-                    </button>
+                    <Button onClick={logout} className={styles['logout-btn']}
+                            text= "Log out"
+                    />
                 </div>
             ) : (
                 <div className={styles['guest-links']}>
-                    <button type="button" onClick={() => navigate('/sign-in')} className={styles['login-btn']}>
-                        Login
-                    </button>
-                    <button type="button" onClick={() => navigate('/sign-up')} className={styles['signup-btn']}>
-                        Sign-up
-                    </button>
+                    <Button onClick={() => navigate('/sign-in')} className={styles['login-btn']}
+                        text="Login"
+                    />
+                    <Button  onClick={() => navigate('/sign-up')} className={styles['signup-btn']}
+                             text="Sign-up"
+                    />
                 </div>
             )}
         </nav>

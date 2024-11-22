@@ -1,6 +1,4 @@
 
-
-/* Navigation */
 .nav {
     background-color: var(--color-secondary);
     position: relative;
@@ -21,7 +19,7 @@
     z-index: 1000;
 }
 
-/* Logo Section */
+
 .logo-container {
     display: flex;
     align-items: center;
@@ -39,7 +37,7 @@
     font-weight: bold;
 }
 
-/* Navigation Links */
+
 .auth-links ul,
 .guest-links {
     display: flex;
@@ -64,7 +62,7 @@
     text-decoration: underline;
 }
 
-/* Buttons (Login, Signup, Logout) */
+
 .logout-btn,
 .login-btn,
 .signup-btn {
@@ -87,7 +85,7 @@
     transform: scale(1.05);
 }
 
-/* Responsive Adjustments */
+
 @media (max-width: 768px) {
     .nav {
         flex-direction: column;

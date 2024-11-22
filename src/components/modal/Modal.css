@@ -27,21 +27,21 @@
 
 .modal-close {
     position: absolute;
-    top: 12px; /* Adjust placement */
-    right: 12px; /* Adjust placement */
-    background: var(--color-secondary); /* Themed button color */
-    color: var(--color-tertiary); /* Text color */
+    top: 12px;
+    right: 12px;
+    background: var(--color-secondary);
+    color: var(--color-tertiary);
     border: none;
-    font-size: 1.5rem; /* Slightly larger for visibility */
+    font-size: 1.5rem;
     cursor: pointer;
-    border-radius: 50%; /* Circular button */
-    width: 32px; /* Increase size for better clickability */
+    border-radius: 50%;
+    width: 32px;
     height: 32px;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: background-color 0.3s ease;
-    z-index: 1000; /* Ensure it stays on top */
+    z-index: 1000;
 }
 
 .modal-close:hover {
@@ -50,5 +50,5 @@
 }
 
 .modal-close:focus {
-    outline: none; /* Remove focus outline */
+    outline: none;
 }

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import './Sign-upPage.css'
 import axios from "axios";
+import Button from "../../components/button/Button.jsx";
 
 function SignUp() {
     const [email, setEmail] = useState('');
@@ -50,6 +51,7 @@ function SignUp() {
     }
 
     return (
+        <div className="page-wrapper">
 
         <div className="outer-container">
             <div className="inner-container signup-page">
@@ -93,9 +95,8 @@ function SignUp() {
                         />
                     </label>
 
-                    <button type="submit" className="btn signup-button">
-                        Sign-up
-                    </button>
+                    <Button text="Sign-up" type="submit" className="btn signup-button" />
+
                 </form>
 
                 <p className="signup-login-redirect">
@@ -103,54 +104,7 @@ function SignUp() {
                 </p>
             </div>
         </div>
-        // <>
-        //     <h1>Registreren</h1>
-        //     <p>tekst over hoe geweldig de app is</p>
-        //
-        //     <form onSubmit={handleSubmit}>
-        //         <label htmlFor={`email-field`}>
-        //             Emailadres:
-        //             <input
-        //                 type={`email`}
-        //                 id={`email-field`}
-        //                 name={`email`}
-        //                 value={email}
-        //                 onChange={(e) => setEmail(e.target.value)}
-        //             />
-        //         </label>
-        //
-        //         <label htmlFor={`username-field`}>
-        //             Username:
-        //             <input
-        //                 type={`text`}
-        //                 id={`username-field`}
-        //                 name={`username`}
-        //                 value={username}
-        //                 onChange={(e) => setUsername(e.target.value)}
-        //             />
-        //         </label>
-        //         <label htmlFor={`password-field`}>
-        //             Password:
-        //             <input
-        //                 type={`password`}
-        //                 id={`password-field`}
-        //                 name={`password`}
-        //                 value={password}
-        //                 onChange={(e) => setPassword(e.target.value)}
-        //             />
-        //         </label>
-        //         <button
-        //             type="submit"
-        //             className="form-button"
-        //         >
-        //             Sign-up
-        //         </button>
-        //
-        //
-        //     </form>
-        //     <p>Heb je al een account? Je kunt je <Link to="/sign-in">hier</Link> inloggen.</p>
-        // </>
-
+        </div>
     );
 }
 

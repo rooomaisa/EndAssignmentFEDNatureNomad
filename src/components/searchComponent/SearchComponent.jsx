@@ -6,6 +6,7 @@ import Modal from '../modal/Modal.jsx';
 import debounce from 'lodash/debounce';
 import { useNotification } from "../../context/NotificationContext.jsx";
 import {useNavigate} from "react-router-dom";
+import Button from "../button/Button.jsx";
 
 function SearchComponent() {
     const [loading, setLoading] = useState(false)
@@ -331,12 +332,7 @@ function handleActivitySelection(e) {
                     {selectedParks.map((park) => (
                         <div key={park.id} className="selected-park">
                             <h3>{park.fullName}</h3>
-                            <button
-                                onClick={() => removeSelectedPark(park.id)}
-                                className="btn btn--remove"
-                            >
-                                Remove
-                            </button>
+                            <Button text="Remove" className="btn btn--remove" onClick={() => removeSelectedPark(park.id)} />
                         </div>
                     ))}
                 </div>
@@ -358,14 +354,8 @@ function handleActivitySelection(e) {
                 ))}
             </div>
 
-            {/* Search Button */}
-            <button
-                onClick={handleSearch}
-                disabled={loading}
-                className="btn btn--primary"
-            >
-                Search
-            </button>
+
+            <Button text="Search" className="btn btn--primary" onClick={handleSearch}  disabled={loading} />
 
             {/* Modal */}
             {isModalOpen && (
@@ -418,12 +408,11 @@ function handleActivitySelection(e) {
                                                 </p>
                                             )}
 
-                                            <button
+                                            <Button
                                                 onClick={() => savePark(park)}
                                                 className="btn btn--save"
-                                            >
-                                                Save Park
-                                            </button>
+                                                text="Save Park"
+                                            />
                                         </div>
                                     );
                                 })
@@ -434,17 +423,16 @@ function handleActivitySelection(e) {
                             )}
                         </div>
                         <div className="modal-footer">
-                            <button
+                            <Button
                                 onClick={handleSearchAgain}
                                 className="btn btn--secondary"
-                            >
-                                Search Again
-                            </button>
-                            <button
+                                text="Search Again"
+                            />
+                            <Button
                                 onClick={() => navigate('/myfavourites')}
-                                className="btn btn--secondary" >
-                                Go to wishlist
-                            </button>
+                                className="btn btn--secondary"
+                                text="Go to wishlist"
+                            />
                         </div>
                     </div>
                 </div>

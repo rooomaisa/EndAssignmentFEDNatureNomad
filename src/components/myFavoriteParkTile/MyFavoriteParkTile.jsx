@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import './MyFavoriteParkTile.css'
 import { SavedParksContext } from '../../context/SavedParksContext';
+import Button from "../button/Button.jsx";
 
 const MyFavoriteParkTile = ({ park }) => {
     const {  deletePark } = useContext(SavedParksContext);
@@ -34,9 +35,9 @@ const MyFavoriteParkTile = ({ park }) => {
                         )}
                     </div>
                 </div>
-                <button className="remove-btn" onClick={() => deletePark(park.parkCode)}>
-                    Remove from Favorites
-                </button>
+                <Button className="remove-btn" onClick={() => deletePark(park.parkCode)}
+                        text="Remove from Favorites"
+                />
             </div>
         </div>
     );

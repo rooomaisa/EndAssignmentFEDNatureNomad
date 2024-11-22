@@ -37,7 +37,6 @@
     color: var(--color-highlight);
 }
 
-/* Navigation */
 .footer-nav ul {
     display: flex;
     gap: 16px;
@@ -55,7 +54,6 @@
     color: var(--color-primary);
 }
 
-/* Copyright */
 .footer-copyright p {
     font-size: 0.875rem;
     color: var(--color-tertiary);
