@@ -237,6 +237,7 @@
 
 .modal-footer .btn {
     width: auto; /* Ensure the button size is not stretched */
+    margin-right: 8px;
 }
 
 

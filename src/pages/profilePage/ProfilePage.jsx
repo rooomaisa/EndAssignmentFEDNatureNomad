@@ -20,6 +20,7 @@ const ProfilePage = () => {
 
     return (
         <>
+            <div className="page-wrapper">
             <section className="outer-container profile-page">
                 <div className="inner-container">
             <h1 className="profile-title">Your "InnerNature" profile page</h1>
@@ -35,6 +36,7 @@ const ProfilePage = () => {
             <p>Start exploring <Link to="/search">here</Link></p>
                 </div>
             </section>
+            </div>
         </>
     );
 };

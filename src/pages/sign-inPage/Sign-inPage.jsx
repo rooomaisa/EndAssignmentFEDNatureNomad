@@ -45,38 +45,50 @@ function SignIn() {
 
 
     return (
-        <>
-            <h1>Inloggen</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab alias cum debitis dolor dolore fuga id molestias qui quo unde?</p>
+        <div className="page-wrapper">
+        <div className="outer-container">
+            <div className="inner-container signin-page">
+                <h1 className="signin-title">"Welcome Back, Explorer!"</h1>
+                <p className="signin-description">
+                    "Adventure awaits! Log in to continue your journey into the wild."
+                </p>
 
-            <form onSubmit={handleSubmit}>
-                <label htmlFor={`username-field`}>
-                    Username:
-                    <input
-                        type={`username`}
-                        id={`username-field`}
-                        name={`username`}
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                </label>
+                <form onSubmit={handleSubmit} className="signin-form">
+                    <label htmlFor="username-field" className="signin-label">
+                        Gebruikersnaam:
+                        <input
+                            type="text"
+                            id="username-field"
+                            name="username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            className="signin-input"
+                        />
+                    </label>
 
-                <label htmlFor={`password-field`}>
-                    Password:
-                    <input
-                        type={`password`}
-                        id={`password-field`}
-                        name={`password`}
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </label>
+                    <label htmlFor="password-field" className="signin-label">
+                        Wachtwoord:
+                        <input
+                            type="password"
+                            id="password-field"
+                            name="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="signin-input"
+                        />
+                    </label>
 
-                <button type={`submit`}>Inloggen</button>
-            </form>
+                    <button type="submit" className="btn signin-button">
+                        login
+                    </button>
+                </form>
 
-            <p>Heb je nog geen account? <Link to="/signup">Registreer</Link> je dan eerst.</p>
-        </>
+                <p className="signin-register-redirect">
+                    Dont have a account yet? <Link to="/signup" className="signin-link">Register</Link> first.
+                </p>
+            </div>
+        </div>
+        </div>
     );
 }
 

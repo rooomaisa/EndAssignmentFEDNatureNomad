@@ -1,19 +1,80 @@
-form {
-    display: flex;
-    flex-direction: column;
-    background-color: #faeab3;
-    padding: 32px;
-    max-width: 300px;
-    border-radius: 4px;
+/* SignIn Page Specific Styles */
+.signin-page {
+    padding: 32px 16px;
+    background-color: var(--color-background);
+    text-align: center;
 }
 
-form label {
-    margin: 4px 0;
+/* Title and Description */
+.signin-title {
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    margin-bottom: 16px;
+}
+
+.signin-description {
+    font-size: 1.25rem;
+    color: var(--color-secondary);
+    margin-bottom: 24px;
+}
+
+/* Form Styling */
+.signin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 400px;
+}
+
+.signin-label {
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+    color: var(--color-secondary);
+    text-align: left;
+    width: 100%;
+}
+
+.signin-input {
+    margin-top: 8px;
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid var(--color-highlight);
+    border-radius: 8px;
+    width: 100%;
+    outline: none;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.signin-input:focus {
+    box-shadow: 0 0 8px var(--color-highlight);
+    border-color: var(--color-primary);
+}
+
+/* Button Styling */
+.signin-button {
+    margin-top: 16px;
+    width: 100%;
+    padding: 12px 0;
+    font-size: 1.25rem;
     font-weight: bold;
 }
 
-form input {
-    width: 100%;
-    padding: 4px 8px;
-    margin: 6px 0;
+/* Register Redirect */
+.signin-register-redirect {
+    margin-top: 24px;
+    font-size: 1rem;
+    color: var(--color-secondary);
+}
+
+.signin-link {
+    color: var(--color-primary);
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+.signin-link:hover {
+    color: var(--color-highlight);
 }

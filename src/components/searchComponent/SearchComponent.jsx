@@ -5,6 +5,7 @@ import './SearchComponent.css'
 import Modal from '../modal/Modal.jsx';
 import debounce from 'lodash/debounce';
 import { useNotification } from "../../context/NotificationContext.jsx";
+import {useNavigate} from "react-router-dom";
 
 function SearchComponent() {
     const [loading, setLoading] = useState(false)
@@ -19,6 +20,7 @@ function SearchComponent() {
     const {savePark} = useContext(SavedParksContext);
     const [notification, setNotification] = useState(false);
     const { triggerNotification } = useNotification();
+    const navigate = useNavigate();
 
 
 
@@ -432,12 +434,17 @@ function handleActivitySelection(e) {
                             )}
                         </div>
                         <div className="modal-footer">
-                        <button
-                            onClick={handleSearchAgain}
-                            className="btn btn--secondary"
-                        >
-                            Search Again
-                        </button>
+                            <button
+                                onClick={handleSearchAgain}
+                                className="btn btn--secondary"
+                            >
+                                Search Again
+                            </button>
+                            <button
+                                onClick={() => navigate('/myfavourites')}
+                                className="btn btn--secondary" >
+                                Go to wishlist
+                            </button>
                         </div>
                     </div>
                 </div>

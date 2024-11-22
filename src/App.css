@@ -7,6 +7,9 @@
     margin: 0 auto;
     padding: 0 16px;
     border: 2px solid red;
+    flex-grow: 1;
+    width: 100%;
+    max-width: 100%;
 }
 
 .inner-container {
@@ -16,6 +19,12 @@
     max-width: 100%;
     width: 100%;
     border: 2px solid blue;
+}
+
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 

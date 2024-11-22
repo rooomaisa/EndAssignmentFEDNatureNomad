@@ -41,7 +41,7 @@ function Navigation() {
                         <li>
                             <NavLink to="/profile"
                                      className={({isActive}) => isActive ? styles['active-link'] : styles['default-link']}>
-                                My profile
+                                My Profile
                             </NavLink>
                         </li>
                     </ul>
@@ -52,10 +52,10 @@ function Navigation() {
             ) : (
                 <div className={styles['guest-links']}>
                     <button type="button" onClick={() => navigate('/sign-in')} className={styles['login-btn']}>
-                        Log in
+                        Login
                     </button>
                     <button type="button" onClick={() => navigate('/sign-up')} className={styles['signup-btn']}>
-                        Registreren
+                        Sign-up
                     </button>
                 </div>
             )}

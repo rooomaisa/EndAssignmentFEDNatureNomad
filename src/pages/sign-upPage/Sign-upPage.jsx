@@ -50,53 +50,106 @@ function SignUp() {
     }
 
     return (
-        <>
-            <h1>Registreren</h1>
-            <p>tekst over hoe geweldig de app is</p>
 
-            <form onSubmit={handleSubmit}>
-                <label htmlFor={`email-field`}>
-                    Emailadres:
-                    <input
-                        type={`email`}
-                        id={`email-field`}
-                        name={`email`}
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                </label>
+        <div className="outer-container">
+            <div className="inner-container signup-page">
+                <h1 className="signup-title">Sign-up</h1>
+                <p className="signup-description">Discover how amazing NatureNomad is!</p>
 
-                <label htmlFor={`username-field`}>
-                    Username:
-                    <input
-                        type={`text`}
-                        id={`username-field`}
-                        name={`username`}
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                </label>
-                <label htmlFor={`password-field`}>
-                    Password:
-                    <input
-                        type={`password`}
-                        id={`password-field`}
-                        name={`password`}
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </label>
-                <button
-                    type="submit"
-                    className="form-button"
-                >
-                    Sign-up
-                </button>
+                <form onSubmit={handleSubmit} className="signup-form">
+                    <label htmlFor="email-field" className="signup-label">
+                        Emailadres:
+                        <input
+                            type="email"
+                            id="email-field"
+                            name="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="signup-input"
+                        />
+                    </label>
 
+                    <label htmlFor="username-field" className="signup-label">
+                        Gebruikersnaam:
+                        <input
+                            type="text"
+                            id="username-field"
+                            name="username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            className="signup-input"
+                        />
+                    </label>
 
-            </form>
-            <p>Heb je al een account? Je kunt je <Link to="/sign-in">hier</Link> inloggen.</p>
-        </>
+                    <label htmlFor="password-field" className="signup-label">
+                        Wachtwoord:
+                        <input
+                            type="password"
+                            id="password-field"
+                            name="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="signup-input"
+                        />
+                    </label>
+
+                    <button type="submit" className="btn signup-button">
+                        Sign-up
+                    </button>
+                </form>
+
+                <p className="signup-login-redirect">
+                    Already have a account? Sign-in <Link to="/sign-in" className="signup-link">here</Link>
+                </p>
+            </div>
+        </div>
+        // <>
+        //     <h1>Registreren</h1>
+        //     <p>tekst over hoe geweldig de app is</p>
+        //
+        //     <form onSubmit={handleSubmit}>
+        //         <label htmlFor={`email-field`}>
+        //             Emailadres:
+        //             <input
+        //                 type={`email`}
+        //                 id={`email-field`}
+        //                 name={`email`}
+        //                 value={email}
+        //                 onChange={(e) => setEmail(e.target.value)}
+        //             />
+        //         </label>
+        //
+        //         <label htmlFor={`username-field`}>
+        //             Username:
+        //             <input
+        //                 type={`text`}
+        //                 id={`username-field`}
+        //                 name={`username`}
+        //                 value={username}
+        //                 onChange={(e) => setUsername(e.target.value)}
+        //             />
+        //         </label>
+        //         <label htmlFor={`password-field`}>
+        //             Password:
+        //             <input
+        //                 type={`password`}
+        //                 id={`password-field`}
+        //                 name={`password`}
+        //                 value={password}
+        //                 onChange={(e) => setPassword(e.target.value)}
+        //             />
+        //         </label>
+        //         <button
+        //             type="submit"
+        //             className="form-button"
+        //         >
+        //             Sign-up
+        //         </button>
+        //
+        //
+        //     </form>
+        //     <p>Heb je al een account? Je kunt je <Link to="/sign-in">hier</Link> inloggen.</p>
+        // </>
 
     );
 }

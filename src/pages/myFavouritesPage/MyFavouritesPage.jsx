@@ -23,6 +23,7 @@ function MyFavouritesPage() {
 
 
     return (
+        <div className="page-wrapper">
         <section className="outer-container my-favourites-page">
             <div className="inner-container">
             <h1 className="text-center header-gradient">Wilderness Wishlist</h1>
@@ -38,6 +39,7 @@ function MyFavouritesPage() {
             </div>
         </div>
         </section>
+        </div>
     );
 }
 
