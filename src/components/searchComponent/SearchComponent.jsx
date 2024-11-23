@@ -7,6 +7,7 @@ import debounce from 'lodash/debounce';
 import { useNotification } from "../../context/NotificationContext.jsx";
 import {useNavigate} from "react-router-dom";
 import Button from "../button/Button.jsx";
+import Loading from "../loadingSpinner/LoadingSpinner.jsx";
 
 function SearchComponent() {
     const [loading, setLoading] = useState(false)
@@ -295,6 +296,7 @@ function handleActivitySelection(e) {
 
     return (
         <div className="search-component">
+            {loading && <Loading size={50} message="Fetching parks, please wait..." />}
             {/* Search Bar */}
             <input
                 type="text"
