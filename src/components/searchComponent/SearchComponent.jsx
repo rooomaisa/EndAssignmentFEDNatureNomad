@@ -367,8 +367,9 @@ function handleActivitySelection(e) {
                     { text: "Search Again", onClick: handleSearchAgain, className: "btn btn--secondary" },
                     { text: "Go to wishlist", onClick: () => navigate('/myfavourites'), className: "btn btn--secondary" },
                 ]}
+                title="Wilderness Picks for You"
             >
-                <h2 className="modal-title">Wilderness Picks for You</h2>
+
                 <div className="modal-content">
                     {topParks.map((park) => (
                         <div key={park.id} className="modal-tile">

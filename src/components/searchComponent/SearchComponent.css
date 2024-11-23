@@ -118,43 +118,6 @@
 }
 
 
-/* Modal Styling */
-
-/* Modal Content Container */
-.modal-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
-    gap: 16px;
-    justify-items: center;
-}
-
-/* Individual Park Tile */
-.modal-content .modal-tile {
-    border: 2px solid var(--color-secondary);
-    padding: 16px;
-    border-radius: 8px;
-    background-color: var(--color-light-green);
-    transition: transform 0.2s ease, background-color 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    max-width: 350px; /* Limit the width of each tile */
-}
-
-.modal-content .modal-tile:hover {
-    transform: scale(1.05);
-    background-color: var(--color-highlight);
-}
-
-/* Image in Park Tile */
-.modal-content .modal-tile img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    object-fit: cover;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for the image */
-}
-
 /* Badge Styling */
 .badge {
     display: inline-block;
@@ -236,73 +199,6 @@
         grid-template-columns: 1fr; /* Single column on small screens */
     }
 }
-
-
-
-
-/*.modal .modal-content {*/
-/*    display: grid;*/
-/*    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));*/
-/*    gap: 16px;*/
-/*    justify-items: center;*/
-
-
-/*.modal .modal-content .modal-tile {*/
-/*    border: 2px solid var(--color-secondary);*/
-/*    padding: 16px;*/
-/*    border-radius: 8px;*/
-/*    background-color: var(--color-light-green);*/
-/*    transition: transform 0.2s ease, background-color 0.3s ease;*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    gap: 16px;*/
-/*}*/
-
-/*.modal .modal-content .modal-tile:hover {*/
-/*    transform: scale(1.05);*/
-/*    background-color: var(--color-highlight);*/
-/*}*/
-
-/*!* Image Styling *!*/
-/*.modal .modal-content .modal-tile img {*/
-/*    width: 100%;*/
-/*    height: auto;*/
-/*    border-radius: 8px;*/
-/*    object-fit: cover;*/
-/*    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);*/
-/*}*/
-
-/*!* Badge Styling *!*/
-/*.badge {*/
-/*    display: inline-block;*/
-/*    font-size: 1rem;*/
-/*    font-weight: bold;*/
-/*    color: var(--color-tertiary);*/
-/*    background-color: var(--color-primary);*/
-/*    padding: 6px 12px;*/
-/*    border-radius: 25px; !* Pill shape *!*/
-/*    text-align: center;*/
-/*    margin-bottom: 8px;*/
-/*}*/
-
-/*.badge--selected {*/
-/*    background-color: var(--color-highlight);*/
-/*}*/
-
-/*.badge--recommended {*/
-/*    background-color: var(--color-accent);*/
-/*}*/
-
-/*!* Button Alignment *!*/
-/*.modal .modal-content .modal-tile .btn {*/
-/*    align-self: flex-end;*/
-/*    margin-top: 12px;*/
-/*}}*/
-
-
-
-
-
 
 
 
