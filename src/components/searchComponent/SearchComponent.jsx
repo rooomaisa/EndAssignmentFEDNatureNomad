@@ -360,86 +360,56 @@ function handleActivitySelection(e) {
             <Button text="Search" className="btn btn--primary" onClick={handleSearch}  disabled={loading} />
 
             {/* Modal */}
-            {isModalOpen && (
-                <div className="modal-overlay">
-                    <div className="modal">
-                        <button
-                            onClick={handleCloseModal}
-                            className="modal-close"
-                        >
-                            &times;
-                        </button>
-                        <h2 className="modal-title">"Wilderness Picks for You"</h2>
-                        <div className="modal-content">
-                            {topParks.length > 0 ? (
-                                topParks.map((park) => {
-                                    const isSelectedPark = selectedParks.some(
-                                        (selected) => selected.parkCode === park.parkCode
-                                    );
-
-                                    return (
-                                        <div key={park.id} className="modal-tile">
-                            <span
-                                className={
-                                    isSelectedPark
-                                        ? "badge badge--selected"
-                                        : "badge badge--recommended"
-                                }
-                            >
-                                {isSelectedPark
-                                    ? "Your Selected Park"
-                                    : "Our Recommendation"}
-                            </span>
-                                            <img
-                                                src={park.imageUrl}
-                                                alt={`${park.fullName} image`}
-                                                className="modal-tile-image"
-                                            />
-                                            <h3 className="modal-tile-title">{park.fullName}</h3>
-                                            <p className="modal-tile-description">{park.description}</p>
-                                            <p className="modal-tile-activities">
-                                                {park.hasSelectedActivities
-                                                    ? "✅ Includes selected activities"
-                                                    : "⚠️ Does not include all selected activities"}
-                                            </p>
-
-                                            {park.missingActivities.length > 0 && (
-                                                <p className="modal-tile-missing-activities">
-                                                    ⚠️ Missing activities:{" "}
-                                                    {park.missingActivities.join(", ")}
-                                                </p>
-                                            )}
-
-                                            <Button
-                                                onClick={() => savePark(park)}
-                                                className="btn btn--save"
-                                                text="Save Park"
-                                            />
-                                        </div>
-                                    );
-                                })
-                            ) : (
-                                <p className="no-results-message">
-                                    No parks match the selected activities.
+            <Modal
+                isOpen={isModalOpen}
+                onClose={handleCloseModal}
+                footerButtons={[
+                    { text: "Search Again", onClick: handleSearchAgain, className: "btn btn--secondary" },
+                    { text: "Go to wishlist", onClick: () => navigate('/myfavourites'), className: "btn btn--secondary" },
+                ]}
+            >
+                <h2 className="modal-title">Wilderness Picks for You</h2>
+                <div className="modal-content">
+                    {topParks.map((park) => (
+                        <div key={park.id} className="modal-tile">
+                <span
+                    className={`badge ${
+                        selectedParks.some((selected) => selected.parkCode === park.parkCode)
+                            ? "badge--selected"
+                            : "badge--recommended"
+                    }`}
+                >
+                    {selectedParks.some((selected) => selected.parkCode === park.parkCode)
+                        ? "Your Selected Park"
+                        : "Our Recommendation"}
+                </span>
+                            <img
+                                src={park.imageUrl}
+                                alt={`${park.fullName} image`}
+                                className="modal-tile-image"
+                            />
+                            <h3 className="modal-tile-title">{park.fullName}</h3>
+                            <p className="modal-tile-description">{park.description}</p>
+                            <p className="modal-tile-activities">
+                                {park.hasSelectedActivities
+                                    ? "✅ Includes selected activities"
+                                    : "⚠️ Does not include all selected activities"}
+                            </p>
+                            {park.missingActivities.length > 0 && (
+                                <p className="modal-tile-missing-activities">
+                                    ⚠️ Missing activities: {park.missingActivities.join(", ")}
                                 </p>
                             )}
-                        </div>
-                        <div className="modal-footer">
                             <Button
-                                onClick={handleSearchAgain}
-                                className="btn btn--secondary"
-                                text="Search Again"
-                            />
-                            <Button
-                                onClick={() => navigate('/myfavourites')}
-                                className="btn btn--secondary"
-                                text="Go to wishlist"
+                                onClick={() => savePark(park)}
+                                className="btn btn--save"
+                                text="Save Park"
                             />
                         </div>
-                    </div>
+                    ))}
                 </div>
+            </Modal>
 
-            )}
         </div>
 
 
