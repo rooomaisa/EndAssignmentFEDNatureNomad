@@ -91,16 +91,16 @@
 
 .activities-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjusts to screen size */
-    gap: 16px; /* Space between items */
-    margin-top: 16px; /* Adds space above the grid */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
 }
 
 .activities-container label {
     display: flex;
     align-items: center;
-    gap: 8px; /* Space between the checkbox and text */
-    background-color: var(--color-light-purple); /* Playful background color */
+    gap: 8px;
+    background-color: var(--color-light-purple);
     padding: 8px;
     border-radius: 4px;
     font-weight: bold;
@@ -109,12 +109,12 @@
 }
 
 .activities-container label:hover {
-    background-color: var(--color-mid-orange); /* Change color on hover */
-    transform: scale(1.05); /* Slight hover lift */
+    background-color: var(--color-mid-orange);
+    transform: scale(1.05);
 }
 
 .activities-container input {
-    accent-color: var(--color-primary); /* Style the checkbox */
+    accent-color: var(--color-primary);
 }
 
 
@@ -126,7 +126,7 @@
     color: var(--color-tertiary);
     background-color: var(--color-primary);
     padding: 6px 12px;
-    border-radius: 25px; /* Pill shape */
+    border-radius: 25px;
     text-align: center;
     margin-bottom: 8px;
 }
@@ -181,7 +181,7 @@
 .modal-footer {
     display: flex;
     justify-content: center;
-    gap: 16px; /* Space between buttons */
+    gap: 16px;
     margin-top: 20px;
 }
 
@@ -196,7 +196,7 @@
 /* Responsiveness */
 @media (max-width: 768px) {
     .modal-content {
-        grid-template-columns: 1fr; /* Single column on small screens */
+        grid-template-columns: 1fr;
     }
 }
 

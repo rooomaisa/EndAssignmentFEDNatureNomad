@@ -7,12 +7,9 @@ function MyFavouritesPage() {
     const { fetchSavedParks, fetchFullParkDetails, fullParkDetails } = useContext(SavedParksContext);
 
     useEffect(() => {
-        console.log('Component mounted. Fetching saved parks...');
-
         async function fetchData() {
             await fetchSavedParks();
             await fetchFullParkDetails();
-            console.log("Full park details fetched:", fullParkDetails);
         }
         fetchData();
     }, []);
@@ -30,7 +27,6 @@ function MyFavouritesPage() {
             <div className="park-list">
                 {fullParkDetails.length > 0 ? (
                     fullParkDetails.map((park, index) => {
-                        console.log("Rendering park in list:", park);
                         return <MyFavoriteParkTile key={index} park={park}/>;
                     })
                 ) : (

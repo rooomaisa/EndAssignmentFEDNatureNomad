@@ -10,7 +10,6 @@ function Navigation() {
     const { isAuth, logout } = useContext(AuthContext);
     const location = useLocation();
     const isHomepage = location.pathname === "/";
-    console.log("Authenticatie status:", isAuth);
 
 
     return (

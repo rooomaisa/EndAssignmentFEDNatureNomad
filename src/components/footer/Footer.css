@@ -1,20 +1,18 @@
 /* General Footer Styles */
 .outer-container {
     display: flex;
-    flex-direction: row; /* Keep row direction */
+    flex-direction: row;
     justify-content: center;
     margin: 0 auto;
     padding: 0 16px;
-    border: 2px solid red;
-    flex-grow: 1; /* Allows the outer-container to expand */
+    flex-grow: 1;
 }
-
 
 .footer {
     background-color: var(--color-secondary);
     color: var(--color-tertiary);
     padding: 10px 0;
-    margin-top: auto; /* Ensures footer sticks to the bottom */
+    margin-top: auto;
 }
 
 .footer-content {

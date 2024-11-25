@@ -6,8 +6,6 @@ import Button from "../button/Button.jsx";
 const MyFavoriteParkTile = ({ park }) => {
     const {  deletePark } = useContext(SavedParksContext);
 
-    console.log("Rendering park in tile:", park);
-
     return (
         <div className="park-tile">
             <img src={park.imageUrl} alt={`${park.fullName} image`} className="park-image"/>

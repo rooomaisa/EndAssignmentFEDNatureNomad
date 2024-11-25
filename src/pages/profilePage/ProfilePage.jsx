@@ -5,10 +5,9 @@ import './ProfilePage.css'
 
 const ProfilePage = () => {
     const { isAuth, user } = useContext(AuthContext);
-    console.log("ProfilePage render - isAuth:", isAuth, "user:", user);
 
     if (!isAuth || !user) {
-        console.log("Redirecting to login - isAuth:", isAuth, "user:", user);
+
         return (
         <>
             <p> Please log in to view your profile. </p>

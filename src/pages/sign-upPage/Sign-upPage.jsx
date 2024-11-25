@@ -15,7 +15,6 @@ function SignUp() {
 
     async function handleSubmit (e) {
         e.preventDefault();
-        console.log(email, username, password);
 
         setLoading(true);
         setError('');
@@ -39,7 +38,6 @@ function SignUp() {
             });
 
             navigate ('/sign-in');
-            console.log("User registered successfully");
 
         } catch (e) {
             console.error(e);
@@ -52,7 +50,6 @@ function SignUp() {
 
     return (
         <div className="page-wrapper">
-
         <div className="outer-container">
             <div className="inner-container signup-page">
                 <h1 className="signup-title">Sign-up</h1>

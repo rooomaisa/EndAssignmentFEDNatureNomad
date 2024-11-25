@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {jwtDecode} from "jwt-decode";
 import axios from "axios";
 import validateToken from "../helpers/isTokenValid";
+import Loading from "../components/loadingSpinner/LoadingSpinner.jsx";
 
 export const AuthContext = createContext ({});
 
@@ -37,8 +38,6 @@ function AuthContextProvider({children}) {
     async function login(token) {
         localStorage.setItem('token', token);
         const decodedToken = jwtDecode(token);
-        console.log(decodedToken)
-        // const username= decodedToken.username || decodedToken.sub
 
         setLoading(true);
         setError('');
@@ -52,7 +51,7 @@ function AuthContextProvider({children}) {
                         "X-Api-Key": "naturenomad:Ic0HJDZjRv9QEebv4tta",
                     }
                 });
-            console.log(response);
+
 
             setAuth({
                 isAuth: true,
@@ -76,8 +75,6 @@ function AuthContextProvider({children}) {
             setLoading(false);
         }
 
-
-        console.log(`logged in`);
         navigate('/profile');
     }
 
@@ -88,7 +85,7 @@ function AuthContextProvider({children}) {
             user: null,
             status: 'done',
         })
-        console.log(`logged out`);
+
         navigate(`/`);
     }
 
@@ -102,7 +99,7 @@ function AuthContextProvider({children}) {
 
     return (
         <AuthContext.Provider value={contextData}>
-            {auth.status === 'done' ? children : <p> Loading...</p> }
+            {auth.status === 'done' ? children : <Loading/> }
         </AuthContext.Provider>
     );
 }

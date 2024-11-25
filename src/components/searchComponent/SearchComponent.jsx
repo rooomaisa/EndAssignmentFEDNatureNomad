@@ -20,10 +20,8 @@ function SearchComponent() {
     const [topParks, setTopParks] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const {savePark} = useContext(SavedParksContext);
-    const [notification, setNotification] = useState(false);
     const { triggerNotification } = useNotification();
     const navigate = useNavigate();
-
 
 
 
@@ -37,11 +35,9 @@ function SearchComponent() {
             try{
                 const response = await axios.get(`https://developer.nps.gov/api/v1/activities?api_key=${import.meta.env.VITE_API_KEY}`,{signal: controller.signal,});
                 setAvailableActivities(response.data.data);
-                console.log(response.data.data)
             } catch (e) {
                 if (axios.isCancel(e)) {
                     console.error(`request is canceled`)
-                    triggerNotification('Request was canceled.', 'warning');
                 } else {
                     console.error(e);
                     setError(`Something went wrong: ` + e.message + true);
@@ -112,12 +108,12 @@ function SearchComponent() {
         );
     }
 
-function handleActivitySelection(e) {
+    function handleActivitySelection(e) {
     const { value, checked } = e.target;
     setSelectedActivities(prev =>
         checked ? [...prev, value] : prev.filter(activity => activity !== value)
     );
-}
+    }
 
     function filterParksByActivities(parks, selectedActivities) {
         return parks.map(park => {
@@ -170,25 +166,15 @@ function handleActivitySelection(e) {
         setLoading(true);
         setError('');
         try {
-            console.log('Selected Parks:', selectedParks);
-            console.log('Selected Activities:', selectedActivities);
-
-
             if (selectedActivities.length === 0) {
                 triggerNotification("Please select at least one activity", "warning");
                 return;
             }
-
             const selectedParksData = await fetchPreselectedParksData();
-            console.log("Preselected Parks Data:", selectedParksData);
-
 
             const activityQuery = selectedActivities.map(activity => `"${activity}"`).join(', ');
-            console.log('Activity Query:', activityQuery);
 
             const apiUrl = `https://developer.nps.gov/api/v1/activities/parks`;
-            console.log('Request URL:', apiUrl);
-
 
             const response = await axios.get(apiUrl, {
                 params: {
@@ -198,14 +184,10 @@ function handleActivitySelection(e) {
                 }
             });
 
-            console.log('API Response:', response.data);
-
-
             const parkFrequencyMap = new Map();
 
             response.data.data.forEach(activity => {
                 activity.parks.forEach(park => {
-                    console.log('Processing park:', park.parkCode);
 
                     if (parkFrequencyMap.has(park.parkCode)) {
                         parkFrequencyMap.set(park.parkCode, {
@@ -218,15 +200,9 @@ function handleActivitySelection(e) {
                 });
             });
 
-
-            console.log('Park Frequency Map:', parkFrequencyMap);
-
-
             const sortedParks = Array.from(parkFrequencyMap.values()).sort((a, b) => b.count - a.count);
-            console.log('Sorted Parks:', sortedParks);
-            const top10Parks = sortedParks.slice(0, 10);
-            console.log(`top 10 parks data:`, top10Parks);
 
+            const top10Parks = sortedParks.slice(0, 10);
 
             const parksWithActivities = await Promise.all(
                 top10Parks.map(async (park) => {
@@ -372,7 +348,7 @@ function handleActivitySelection(e) {
 
                 <div className="modal-content">
                     {topParks.map((park) => (
-                        <div key={park.id} className="modal-tile">
+                        <div key={park.parkCode} className="modal-tile">
                 <span
                     className={`badge ${
                         selectedParks.some((selected) => selected.parkCode === park.parkCode)

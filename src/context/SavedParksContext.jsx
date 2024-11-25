@@ -19,7 +19,7 @@ function SavedParksProvider({ children }) {
 
     useEffect(() => {
         if (user) {
-            fetchSavedParks(); // Fetch saved parks when the user logs in
+            fetchSavedParks();
         }
     }, [user]);
 
@@ -32,19 +32,16 @@ function SavedParksProvider({ children }) {
             return;
         }
 
-        // Ensure savedParks is loaded
         if (!savedParks || savedParks.length === 0) {
-            console.log("Syncing saved parks with backend...");
+
             await fetchSavedParks();
         }
 
         const parkAlreadySaved = savedParks.some((park) => park.parkCode === newPark.parkCode);
         if (parkAlreadySaved) {
-            console.log("This park is already saved");
             triggerNotification("This park is already saved in your favorites", "warning");
             return;
         }
-
 
         const updatedParks = [...savedParks, { parkCode: newPark.parkCode }];
         setSavedParks(updatedParks);
@@ -54,12 +51,8 @@ function SavedParksProvider({ children }) {
 
         try {
             const token = localStorage.getItem('token');
+
             const parksDataString = JSON.stringify(updatedParks);
-
-
-            console.log("Data to be sent to backend (info):", parksDataString);
-            console.log("Using username:", user.username);
-
 
             const response = await axios.put(
                 `https://api.datavortex.nl/naturenomad/users/${user.username}`,
@@ -72,9 +65,7 @@ function SavedParksProvider({ children }) {
                 }
             );
 
-
             setSavedParks(response.data.info)
-            console.log('Park saved successfully:', response.data);
             triggerNotification("Park saved successfully!", "success");
 
         } catch (e) {
@@ -102,10 +93,7 @@ function SavedParksProvider({ children }) {
                 }
             );
 
-            console.log(response.data);
-
             const savedParkCodes = response.data || [];
-            console.log(savedParkCodes)
             setSavedParks(savedParkCodes);
 
         } catch (e) {
@@ -124,9 +112,6 @@ function SavedParksProvider({ children }) {
                     const response = await axios.get(
                         `https://developer.nps.gov/api/v1/parks?parkCode=${savedPark.parkCode}&api_key=${import.meta.env.VITE_API_KEY}`
                     );
-
-                    const data = response.data.data
-                    console.log("Data received from fetchSavedParks:", data);
 
                     const parkData = response.data.data[0];
                     const parkActivities = parkData.activities.map((activity) => activity.name);
@@ -152,14 +137,11 @@ function SavedParksProvider({ children }) {
                 })
             );
 
-
-            console.log("this is the fullparks detail",fullParkDetails);
             setFullParkDetails(fullParkDetails);
         } catch (e) {
             console.error("Error fetching full park details:", e);
         }
     }
-
 
 
 
@@ -186,7 +168,6 @@ function SavedParksProvider({ children }) {
             );
 
             setSavedParks(JSON.parse(response.data.info));
-            console.log('Park deleted successfully:', response.data);
         } catch (e) {
             console.error(e);
             setError(`Something went wrong: ` + e.message);

@@ -18,7 +18,6 @@ function SignIn() {
     async function handleSubmit (e) {
         e.preventDefault();
         login(username);
-        console.log(username,password);
 
         setLoading(true);
         setError('');
@@ -30,8 +29,7 @@ function SignIn() {
                     password: password,
                 });
             const token = response.data.jwt;
-            console.log(response.data);
-            console.log(response.data.jwt);
+
             login(token);
             navigate("/profile")
 
@@ -80,6 +78,7 @@ function SignIn() {
                     </label>
 
                     <Button text="Login" type="submit" className="btn signin-button" />
+
 
                 </form>
 
