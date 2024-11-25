@@ -75,9 +75,8 @@
     gap: 16px;
     justify-items: center;
     margin: 16px auto;
-    width: 100%;
+    width: 900px;
     box-sizing: border-box;
-    border: 6px solid red;
 }
 
 /* Modal Tile */
