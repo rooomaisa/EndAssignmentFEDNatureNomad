@@ -19,6 +19,7 @@
     box-shadow: 0 0 8px var(--color-highlight);
 }
 
+
 .suggestions {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -117,6 +118,9 @@
     accent-color: var(--color-primary);
 }
 
+.btn {
+    margin-bottom: 16px;
+}
 
 /* Badge Styling */
 .badge {

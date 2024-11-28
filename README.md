@@ -14,7 +14,7 @@ NatureNomad is a React-based web application that helps users discover and plan 
 
 ## Screenshot
 
-![NatureNomad Search Page](./path-to-your-screenshot.jpg)
+![NatureNomad Search Page](./src/assets/images/Screenshot.png)
 > Screenshot of the main search page where users can customize their park preferences.
 
 ---
@@ -47,32 +47,39 @@ Use Git to clone the repository to your local machine:
 git clone git@github.com:<your-username>/<repository-name>.git
 cd <repository-folder>
 
-2. Install Dependencies
+### 2. Install Dependencies
 Install all the required dependencies:
-npm install
+npm install: 
+"axios": "^1.7.7",
+"jwt-decode": "^4.0.0",
+"lodash": "^4.17.21",
+"lodash.debounce": "^4.0.8",
+"react": "^18.2.0",
+"react-dom": "^18.2.0",
+"react-router-dom": "^6.26.2"
 
-3. Set Up Environment Variables
+### 3. Set Up Environment Variables
 Create a .env file in the root of the project:
 
 Copy the contents of the .env.dist file into .env.
 Add the following API key to the .env file:
 VITE_API_KEY=VH0NU4pT0TJAlBErq2450GOdx2Rhf2gX3cQcJMM8
 
-4. Run the Application
+### 4. Run the Application
 Start the development server
 npm run dev
 
 The app will run at http://localhost:5174 by default. Open this URL in your browser.
 
 
-
-Login Credentials
+###  Login Credentials
 To test the application, use the following demo account:
 
 Email: klaasje@hotmail.com
 Password: 12345678
 Available npm Commands
-Here are the npm commands you can use during development:
+
+###  Here are the npm commands you can use during development:
 
 npm run dev: Starts the development server for local testing.
 npm run build: Builds the application for production deployment.

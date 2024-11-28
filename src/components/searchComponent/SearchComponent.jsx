@@ -282,7 +282,7 @@ function SearchComponent() {
                 className="search-bar"
             />
 
-            {/* Display Error if Exists */}
+
             {error && <p className="error-message">{error}</p>}
 
             {/* Suggestions */}
