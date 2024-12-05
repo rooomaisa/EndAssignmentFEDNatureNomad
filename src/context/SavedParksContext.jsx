@@ -191,12 +191,16 @@ function SavedParksProvider({ children }) {
 
             // Remove the park from the list
             const backendParks = response.data.info ? response.data.info.split(',') : [];
-            const updatedParks = backendParks.filter((code) => code !== parkCode).join(',');
+            const updatedParksArray = backendParks.filter((code) => code !== parkCode);
+            console.log('Updated parks array:', updatedParksArray);
 
             // Update backend
-            await axios.put(
+            const updatedParksString = updatedParksArray.length ? updatedParksArray.join(',') : "";
+            console.log('Updated parks string:', updatedParksString);
+            const updateResponse =
+                await axios.put(
                 `https://api.datavortex.nl/naturenomad/users/${user.username}`,
-                { info: updatedParks },
+                { info: updatedParksString },
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -205,10 +209,10 @@ function SavedParksProvider({ children }) {
                 }
             );
 
-            console.log('Backend response after delete:', response.data.info);
+            console.log('Backend response after delete:', updateResponse.data.info);
 
             // Update local state
-            setSavedParks(updatedParks.split(','));
+            setSavedParks(updatedParksArray);
             triggerNotification("Park removed successfully!", "success");
 
         } catch (e) {
