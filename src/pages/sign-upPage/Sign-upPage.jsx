@@ -3,6 +3,7 @@ import {Link, useNavigate} from "react-router-dom";
 import './Sign-upPage.css'
 import axios from "axios";
 import Button from "../../components/button/Button.jsx";
+import { useNotification} from "../../context/NotificationContext.jsx";
 
 function SignUp() {
     const [email, setEmail] = useState('');
@@ -12,9 +13,15 @@ function SignUp() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
     const navigate= useNavigate();
+    const { triggerNotification } = useNotification();
 
     async function handleSubmit (e) {
         e.preventDefault();
+
+        if (password.length < 8) {
+            triggerNotification("Password must be at least 8 characters long.", "warning");
+            return;
+        }
 
         setLoading(true);
         setError('');
