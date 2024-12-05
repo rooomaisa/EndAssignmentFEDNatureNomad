@@ -8,3 +8,13 @@
     gap: 16px;
     margin-top: 32px;
 }
+
+
+.empty-message {
+    text-align: center;
+    font-size: 1.25rem;
+    color: var(--color-secondary);
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: 16px;
+}

@@ -14,28 +14,25 @@ function MyFavouritesPage() {
         fetchData();
     }, []);
 
-    if (!fullParkDetails || fullParkDetails.length === 0) {
-        return <div>No saved parks yet. Please save some parks!</div>;
-    }
 
 
     return (
         <div className="page-wrapper">
-        <section className="outer-container my-favourites-page">
+        <section className="my-favourites-page outer-container">
             <div className="inner-container">
-            <h1 className="text-center header-gradient">Wilderness Wishlist</h1>
-            <div className="park-list">
-                {fullParkDetails.length > 0 ? (
-                    fullParkDetails.map((park, index) => {
-                        return <MyFavoriteParkTile key={index} park={park}/>;
-                    })
+                {fullParkDetails.length === 0 ? (
+                    <p className="empty-message">You don't have any favorite parks yet. Start exploring!</p>
                 ) : (
-                    <p className="text-center"> No parks saved yes Start exploring and add some! </p>
+                    <div className="park-list">
+                        {fullParkDetails.map((park) => (
+                            <MyFavoriteParkTile key={park.parkCode} park={park}/>
+                        ))}
+                    </div>
                 )}
             </div>
-        </div>
         </section>
         </div>
+
     );
 }
 

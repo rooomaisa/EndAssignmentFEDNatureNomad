@@ -31,7 +31,7 @@ function SignUp() {
                 username: username,
                 email: email,
                 password: password,
-                info: 'testinfo',
+                info: '',
                 "authorities": [
                     {
                         "authority": "USER"
