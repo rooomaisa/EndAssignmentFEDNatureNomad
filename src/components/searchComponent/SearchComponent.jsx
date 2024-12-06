@@ -105,15 +105,6 @@ function SearchComponent() {
     );
     }
 
-    // function filterParksByActivities(parks, selectedActivities) {
-    //     return parks.map(park => {
-    //
-    //         const parkActivities = park.activities || [];
-    //         const hasSelectedActivities = selectedActivities.every(activity => parkActivities.includes(activity));
-    //
-    //         return { ...park, hasSelectedActivities };
-    //     });
-    // }
 
     async function fetchPreselectedParksData() {
         return await Promise.all(
