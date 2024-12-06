@@ -1,6 +1,7 @@
 # NatureNomad
 
 NatureNomad is a React-based web application that helps users discover and plan visits to national parks in the U.S.A. The app generates a customized top 10 list of parks based on user preferences, such as activities and park details. Users can save their favorite parks to a wishlist and revisit them later for further planning.
+https://github.com/rooomaisa/EndAssignmentFEDNatureNomad
 
 ## Features
 
@@ -77,7 +78,7 @@ To test the application, use the following demo account:
 
 Gebruikersnaam: Pedrieto
 Password: Pandabear
-Available npm Commands
+
 
 ###  Here are the npm commands you can use during development:
 
