@@ -25,35 +25,26 @@ function SearchComponent() {
 
 
 
+    async function fetchActivities() {
+        setLoading(true);
+        setError('');
+
+        try {
+            const response = await axios.get(
+                `https://developer.nps.gov/api/v1/activities?api_key=${import.meta.env.VITE_API_KEY}`
+            );
+            setAvailableActivities(response.data.data);
+
+        } catch (e) {
+            console.error("Error fetching activities:", e);
+            setError(`Something went wrong: ${e.message}`);
+        } finally {
+            setLoading(false);
+        }
+    }
+
     useEffect(() => {
-        const controller = new AbortController();
-
-        async function fetchActivities (){
-            setLoading(true);
-            setError('');
-
-            try{
-                const response = await axios.get(`https://developer.nps.gov/api/v1/activities?api_key=${import.meta.env.VITE_API_KEY}`,{signal: controller.signal,});
-                setAvailableActivities(response.data.data);
-            } catch (e) {
-                if (axios.isCancel(e)) {
-                    console.error(`request is canceled`)
-                } else {
-                    console.error(e);
-                    setError(`Something went wrong: ` + e.message + true);
-                    triggerNotification(`Something went wrong: ${e.message}`, 'warning');
-                }
-            } finally {
-                setLoading(false);
-            }
-        }
-
         fetchActivities();
-
-
-        return function cleanup() {
-            controller.abort();
-        }
     }, []);
 
 
@@ -65,7 +56,6 @@ function SearchComponent() {
         }
 
         const controller = new AbortController();
-
 
         const fetchParksSuggestions = debounce(async () => {
             try {
@@ -115,16 +105,15 @@ function SearchComponent() {
     );
     }
 
-    function filterParksByActivities(parks, selectedActivities) {
-        return parks.map(park => {
-            // Check if the park includes all selected activities
-            const parkActivities = park.activities || [];
-            const hasSelectedActivities = selectedActivities.every(activity => parkActivities.includes(activity));
-
-            // Return the park with the new flag
-            return { ...park, hasSelectedActivities };
-        });
-    }
+    // function filterParksByActivities(parks, selectedActivities) {
+    //     return parks.map(park => {
+    //
+    //         const parkActivities = park.activities || [];
+    //         const hasSelectedActivities = selectedActivities.every(activity => parkActivities.includes(activity));
+    //
+    //         return { ...park, hasSelectedActivities };
+    //     });
+    // }
 
     async function fetchPreselectedParksData() {
         return await Promise.all(
@@ -171,9 +160,7 @@ function SearchComponent() {
                 return;
             }
             const selectedParksData = await fetchPreselectedParksData();
-
             const activityQuery = selectedActivities.map(activity => `"${activity}"`).join(', ');
-
             const apiUrl = `https://developer.nps.gov/api/v1/activities/parks`;
 
             const response = await axios.get(apiUrl, {
@@ -212,7 +199,7 @@ function SearchComponent() {
                     const parkData = response.data.data[0];
                     const parkDescription = parkData.description;
                     const parkActivities = response.data.data[0].activities.map((activity) => activity.name);
-                    const imageUrl = parkData.images[0]?.url || '';  // Select the first image if available
+                    const imageUrl = parkData.images[0]?.url || '';
 
                     const missingActivities = selectedActivities.filter(
                         (activity) => !parkActivities.includes(activity)
@@ -335,7 +322,7 @@ function SearchComponent() {
 
             <Button text="Search" className="btn btn--primary" onClick={handleSearch}  disabled={loading} />
 
-            {/* Modal */}
+
             <Modal
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}

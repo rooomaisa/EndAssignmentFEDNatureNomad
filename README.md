@@ -75,8 +75,8 @@ The app will run at http://localhost:5174 by default. Open this URL in your brow
 ###  Login Credentials
 To test the application, use the following demo account:
 
-Email: klaasje@hotmail.com
-Password: 12345678
+Gebruikersnaam: Pedrieto
+Password: Pandabear
 Available npm Commands
 
 ###  Here are the npm commands you can use during development:

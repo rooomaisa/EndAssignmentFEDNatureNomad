@@ -37,7 +37,6 @@ function SavedParksProvider({ children }) {
         try {
             const token = localStorage.getItem('token');
 
-            // Fetch current parks from backend
             const response = await axios.get(
                 `https://api.datavortex.nl/naturenomad/users/${user.username}`,
                 {
@@ -48,19 +47,15 @@ function SavedParksProvider({ children }) {
                 }
             );
 
-            // Parse backend data
             const backendParks = response.data.info ? response.data.info.split(',') : [];
 
-            // Check if the park is already saved
             if (backendParks.includes(newPark.parkCode)) {
                 triggerNotification("This park is already saved in your favorites", "warning");
                 return;
             }
 
-            // Add the new park to the backend data
             const updatedParks = [...backendParks, newPark.parkCode].join(',');
 
-            // Update backend with new park list
             await axios.put(
                 `https://api.datavortex.nl/naturenomad/users/${user.username}`,
                 { info: updatedParks },
@@ -72,12 +67,7 @@ function SavedParksProvider({ children }) {
                 }
             );
 
-            console.log("Parks being saved:", updatedParks);
-
-
-            // Update savedParks state locally for UI
             setSavedParks(updatedParks.split(','));
-
             triggerNotification("Park saved successfully!", "success");
 
         } catch (e) {
@@ -102,16 +92,11 @@ function SavedParksProvider({ children }) {
                 }
             );
 
-            console.log("Fetched savedParks:", savedParks);
 
-
-            // Parse and store parks in local state
             const parks = response.data.info ? response.data.info.split(',') : [];
 
-            console.log("Fetched savedParks:", parks);
-            setSavedParks(parks.filter((code) => code)); // Filter out empty strings
+            setSavedParks(parks.filter((code) => code));
 
-            // setSavedParks(parks);
         } catch (e) {
             console.error("Error fetching saved parks:", e);
         }
@@ -124,19 +109,13 @@ function SavedParksProvider({ children }) {
             const fullParkDetails = await Promise.all(
                 savedParks.map(async (parkCode) => {
 
-                    console.log("Fetching details for parkCode:", parkCode);
-
-                    // Fetch details from NPS API
                     const response = await axios.get(
                         `https://developer.nps.gov/api/v1/parks?parkCode=${parkCode}&api_key=${import.meta.env.VITE_API_KEY}`
                     );
 
-                    const parkData = response.data.data[0]; // Ensure there's valid data
+                    const parkData = response.data.data[0];
                     if (!parkData) {
-
                         console.error(`No data returned for parkCode: ${parkCode}`);
-
-                        throw new Error(`No data returned for parkCode: ${parkCode}`);
                     }
 
                     const parkActivities = parkData.activities.map((activity) => activity.name);
@@ -149,7 +128,7 @@ function SavedParksProvider({ children }) {
                     const description = parkData.description || '';
 
                     return {
-                        parkCode, // Include parkCode for reference
+                        parkCode,
                         activities: parkActivities,
                         imageUrl,
                         directionsUrl,
@@ -178,7 +157,6 @@ function SavedParksProvider({ children }) {
         try {
             const token = localStorage.getItem('token');
 
-            // Fetch current parks from backend
             const response = await axios.get(
                 `https://api.datavortex.nl/naturenomad/users/${user.username}`,
                 {
@@ -189,14 +167,11 @@ function SavedParksProvider({ children }) {
                 }
             );
 
-            // Remove the park from the list
+
             const backendParks = response.data.info ? response.data.info.split(',') : [];
             const updatedParksArray = backendParks.filter((code) => code !== parkCode);
-            console.log('Updated parks array:', updatedParksArray);
-
-            // Update backend
             const updatedParksString = updatedParksArray.length ? updatedParksArray.join(',') : "";
-            console.log('Updated parks string:', updatedParksString);
+
             const updateResponse =
                 await axios.put(
                 `https://api.datavortex.nl/naturenomad/users/${user.username}`,
@@ -209,9 +184,11 @@ function SavedParksProvider({ children }) {
                 }
             );
 
-            console.log('Backend response after delete:', updateResponse.data.info);
+       
+            if (updateResponse.status !== 200) {
+                triggerNotification("Could not delete park!", "error");
+            }
 
-            // Update local state
             setSavedParks(updatedParksArray);
             triggerNotification("Park removed successfully!", "success");
 
