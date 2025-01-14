@@ -88,8 +88,10 @@ function SearchComponent() {
         if (!selectedParks.find((p) => p.id === park.id)) {
             setSelectedParks((prevSelected) => [...prevSelected, park]);
         }
+        updateURLWithParams(searchTerm, selectedActivities)
         setSearchTerm('');
         setSuggestedParks([]);
+
     }
 
     function removeSelectedPark(parkId) {
@@ -98,12 +100,6 @@ function SearchComponent() {
         );
     }
 
-    // function handleActivitySelection(e) {
-    // const { value, checked } = e.target;
-    // setSelectedActivities(prev =>
-    //     checked ? [...prev, value] : prev.filter(activity => activity !== value)
-    // );
-    // }
 
     function handleActivitySelection(e) {
         const { value, checked } = e.target;
@@ -238,12 +234,26 @@ function SearchComponent() {
         }
     }
 
+
     function updateURLWithParams(searchTerm, activities) {
-        const params = new URLSearchParams();
-        if (searchTerm) params.append("query", searchTerm);
-        if (activities.length > 0) params.append("activities", activities.join(","));
+        const params = new URLSearchParams(window.location.search);
+
+        if (searchTerm && searchTerm.trim() !== '') {
+            params.set('query', searchTerm);
+        } else {
+            params.delete('query');
+        }
+
+        if (activities && activities.length > 0) {
+            params.set('activities', activities.join(','));
+        } else {
+            params.delete('activities');
+        }
+
         navigate(`/search?${params.toString()}`);
     }
+
+
 
 
     function handleCloseModal() {
