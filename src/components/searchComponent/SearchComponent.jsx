@@ -54,7 +54,7 @@ function SearchComponent() {
             setSuggestedParks([]);
             return;
         }
-
+        updateURLWithParams(searchTerm, selectedActivities);
         const controller = new AbortController();
 
         const fetchParksSuggestions = debounce(async () => {
@@ -79,7 +79,7 @@ function SearchComponent() {
             controller.abort();
             fetchParksSuggestions.cancel();
         };
-    }, [searchTerm]);
+    }, [searchTerm, selectedActivities]);
 
 
 
@@ -98,11 +98,21 @@ function SearchComponent() {
         );
     }
 
+    // function handleActivitySelection(e) {
+    // const { value, checked } = e.target;
+    // setSelectedActivities(prev =>
+    //     checked ? [...prev, value] : prev.filter(activity => activity !== value)
+    // );
+    // }
+
     function handleActivitySelection(e) {
-    const { value, checked } = e.target;
-    setSelectedActivities(prev =>
-        checked ? [...prev, value] : prev.filter(activity => activity !== value)
-    );
+        const { value, checked } = e.target;
+        const updatedActivities = checked
+            ? [...selectedActivities, value]
+            : selectedActivities.filter(activity => activity !== value);
+
+        setSelectedActivities(updatedActivities);
+        updateURLWithParams(searchTerm, updatedActivities);
     }
 
 
@@ -228,6 +238,12 @@ function SearchComponent() {
         }
     }
 
+    function updateURLWithParams(searchTerm, activities) {
+        const params = new URLSearchParams();
+        if (searchTerm) params.append("query", searchTerm);
+        if (activities.length > 0) params.append("activities", activities.join(","));
+        navigate(`/search?${params.toString()}`);
+    }
 
 
     function handleCloseModal() {
