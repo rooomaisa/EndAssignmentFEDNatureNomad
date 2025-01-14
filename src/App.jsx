@@ -13,6 +13,7 @@ import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext.jsx";
 import { useNotification } from "./context/NotificationContext.jsx";
 import Notification from "./components/notifications/Notification.jsx";
+import SearchComponent from "./components/searchComponent/SearchComponent.jsx";
 
 
 function App() {

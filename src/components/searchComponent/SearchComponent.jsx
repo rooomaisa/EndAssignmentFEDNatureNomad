@@ -54,7 +54,7 @@ function SearchComponent() {
             setSuggestedParks([]);
             return;
         }
-
+        updateURLWithParams(searchTerm, selectedActivities);
         const controller = new AbortController();
 
         const fetchParksSuggestions = debounce(async () => {
@@ -79,7 +79,7 @@ function SearchComponent() {
             controller.abort();
             fetchParksSuggestions.cancel();
         };
-    }, [searchTerm]);
+    }, [searchTerm, selectedActivities]);
 
 
 
@@ -88,8 +88,10 @@ function SearchComponent() {
         if (!selectedParks.find((p) => p.id === park.id)) {
             setSelectedParks((prevSelected) => [...prevSelected, park]);
         }
+        updateURLWithParams(searchTerm, selectedActivities)
         setSearchTerm('');
         setSuggestedParks([]);
+
     }
 
     function removeSelectedPark(parkId) {
@@ -98,11 +100,15 @@ function SearchComponent() {
         );
     }
 
+
     function handleActivitySelection(e) {
-    const { value, checked } = e.target;
-    setSelectedActivities(prev =>
-        checked ? [...prev, value] : prev.filter(activity => activity !== value)
-    );
+        const { value, checked } = e.target;
+        const updatedActivities = checked
+            ? [...selectedActivities, value]
+            : selectedActivities.filter(activity => activity !== value);
+
+        setSelectedActivities(updatedActivities);
+        updateURLWithParams(searchTerm, updatedActivities);
     }
 
 
@@ -227,6 +233,26 @@ function SearchComponent() {
             setLoading(false);
         }
     }
+
+
+    function updateURLWithParams(searchTerm, activities) {
+        const params = new URLSearchParams(window.location.search);
+
+        if (searchTerm && searchTerm.trim() !== '') {
+            params.set('query', searchTerm);
+        } else {
+            params.delete('query');
+        }
+
+        if (activities && activities.length > 0) {
+            params.set('activities', activities.join(','));
+        } else {
+            params.delete('activities');
+        }
+
+        navigate(`/search?${params.toString()}`);
+    }
+
 
 
 
