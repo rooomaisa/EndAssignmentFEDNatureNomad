@@ -14,6 +14,7 @@ import { AuthContext } from "./context/AuthContext.jsx";
 import { useNotification } from "./context/NotificationContext.jsx";
 import Notification from "./components/notifications/Notification.jsx";
 import SearchComponent from "./components/searchComponent/SearchComponent.jsx";
+import ParkDetail from "./components/parkdetail/ParkDetail.jsx";
 
 
 function App() {
@@ -32,7 +33,8 @@ function App() {
                     <Route path="/profile" element={ isAuth ? <ProfilePage /> : <Navigate to="/sign-in"/>}/>
                     <Route path="/sign-up" element={<SignUp/>} />
                     <Route path="/sign-in" element={<SignIn/>} />
-                    <Route path="*" element={<NotFound/>}/>
+                    <Route path="*" element={<NotFound/>} />
+                    <Route path="/park/:parkCode" element={<ParkDetail/>} />
                 </Routes>
             </main>
             {notification && <Notification message={notification.message} type={notification.type} />}
