@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import ActivityList from '../activityList/ActivityList';
+import './ParkDetail.css';
+
 
 function ParkDetail() {
     const { parkCode } = useParams(); // Haal parkCode uit de URL
@@ -37,32 +39,37 @@ function ParkDetail() {
     if (!parkData) return <p>Loading...</p>;
 
     return (
-        <div>
+        <div className="park-detail">
             <h1>{parkData.fullName}</h1>
             <img
                 src={parkData.images[0]?.url || 'https://via.placeholder.com/400'}
                 alt={parkData.fullName}
-                style={{ maxWidth: '100%', height: 'auto' }}
             />
             <p>{parkData.description}</p>
             <p>Toegangskosten: ${parkData.entranceFees[0]?.cost || 'Geen informatie'}</p>
 
             {/* Activiteitenlijst */}
             <h2>Activiteiten</h2>
-            <ActivityList
-                activities={parkData.activities} // Activiteiten uit de API
-                onToggle={handleToggleActivity} // Callback voor interactie
-            />
+            <div className="activity-list">
+                <ActivityList
+                    activities={parkData.activities}
+                    onToggle={handleToggleActivity}
+                />
+            </div>
 
             {/* Geselecteerde activiteiten */}
             <h2>Geselecteerde activiteiten:</h2>
-            <ul>
-                {selectedActivities.map((id) => {
-                    const activity = parkData.activities.find((a) => a.id === id); // Zoek de naam van de activiteit
-                    return <li key={id}>{activity.name}</li>;
-                })}
-            </ul>
+            <div className="selected-activities">
+                <ul>
+                    {selectedActivities.map((id) => {
+                        const activity = parkData.activities.find((a) => a.id === id);
+                        return <li key={id}>{activity.name}</li>;
+                    })}
+                </ul>
+            </div>
         </div>
+
+
     );
 }
 

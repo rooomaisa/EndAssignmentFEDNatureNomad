@@ -2,15 +2,24 @@ import React, {useContext} from 'react';
 import './MyFavoriteParkTile.css'
 import { SavedParksContext } from '../../context/SavedParksContext';
 import Button from "../button/Button.jsx";
+import { useNavigate } from 'react-router-dom';
 
 const MyFavoriteParkTile = ({ park }) => {
     const {  deletePark } = useContext(SavedParksContext);
+    const navigate = useNavigate();
 
     return (
         <div className="park-tile">
             <img src={park.imageUrl} alt={`${park.fullName} image`} className="park-image"/>
             <div className="park-info">
-                <h3 className="park-title">{park.fullName}</h3>
+
+                <h3
+                    className="park-title"
+                    onClick={() => navigate(`/park/${park.parkCode}`)}
+                    style={{cursor: 'pointer'}}
+                >
+                    {park.fullName}
+                </h3>
                 <p className="park-description">{park.description}</p>
                 {park.directionsUrl && (
                     <a href={park.directionsUrl} target="_blank" rel="noopener noreferrer" className="park-link">
