@@ -1,0 +1,73 @@
+/* Algemeen voor de detailpagina */
+.park-detail {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Titel en afbeelding */
+.park-detail h1 {
+    font-size: 2rem;
+    color: #2c2f39;
+    margin-bottom: 1rem;
+}
+
+.park-detail img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+/* Beschrijving en extra info */
+.park-detail p {
+    margin-bottom: 1rem;
+    color: #50535c;
+}
+
+/* Sectie voor activiteiten */
+.park-detail h2 {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #38e991;
+}
+
+/* Activiteitenlijst */
+.activity-list ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.activity-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.activity-list label {
+    font-size: 1rem;
+    cursor: pointer;
+    color: #2c2f39;
+}
+
+.activity-list input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+/* Geselecteerde activiteiten */
+.selected-activities ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-top: 1rem;
+}
+
+.selected-activities li {
+    color: #50535c;
+}
