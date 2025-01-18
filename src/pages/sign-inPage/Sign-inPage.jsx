@@ -83,7 +83,7 @@ function SignIn() {
                 </form>
 
                 <p className="signin-register-redirect">
-                    Dont have a account yet? <Link to="/signup" className="signin-link">Register</Link> first.
+                    Dont have a account yet? <Link to="/sign-up" className="signin-link">Register</Link> first.
                 </p>
             </div>
         </div>
